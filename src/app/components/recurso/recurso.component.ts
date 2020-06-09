@@ -42,7 +42,7 @@ export class RecursoComponent implements OnInit {
   @ViewChild('labelImport') labelImport: ElementRef;
 
   constructor(private resourcesService: ResourcesService, private activatedRoute: ActivatedRoute,
-    private loginService: LoginService, private router: Router, private sedesService: SedesService, private meta: Meta) {
+    public loginService: LoginService, private router: Router, private sedesService: SedesService, private meta: Meta) {
     this.pageNumber = 1;
     this.maxDate = {
       year: this.today.getFullYear(),

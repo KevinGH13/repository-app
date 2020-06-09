@@ -18,6 +18,8 @@ export class EstadosUsuariosComponent implements OnInit {
   formBuilder: FormBuilder = new FormBuilder();
   util: Util = new Util();
   submitted = false;
+  total: number;
+  pageNumber: number;
   tituloModal = 'Nuevo Estado';
   operacion: string;
   @ViewChild('btnCloseModal') btnCloseModal: ElementRef;
@@ -57,7 +59,7 @@ export class EstadosUsuariosComponent implements OnInit {
           this.util.manageResponseFalse(response);
         }
       },
-      error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
   onEdit(codigoEstado: string) {
@@ -82,7 +84,7 @@ export class EstadosUsuariosComponent implements OnInit {
             this.util.manageResponseFalse(response);
           }
         },
-        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+          error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
     }
   }
 
@@ -119,7 +121,7 @@ export class EstadosUsuariosComponent implements OnInit {
           this.util.manageResponseFalse(response);
         }
       },
-      error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
   actionAfterPostSuccess(response: ResponseModel) {
