@@ -165,4 +165,8 @@ export class HomeComponent implements OnInit {
     this.route.navigate(['/discover', { title: titleValue }]);
   }
 
+  onCancel() {
+    this.formBusquedaAvanzada.reset();
+  }
+
 }
