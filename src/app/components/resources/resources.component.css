@@ -1,0 +1,13 @@
+.tamano-modal {
+    overflow: auto;
+    max-height: 35em;
+}
+
+.table-container-resources {
+    min-height: 400px;
+    max-width: 100em;
+}
+
+.custom-file-label::after {
+    content: "Elegir";
+}

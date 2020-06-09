@@ -1,0 +1,83 @@
+<div class="animated fadeIn fast">
+  <div>
+    <button type="button" class="btn fondo-letra-poli btn-nuevo-top" data-toggle="modal" data-target="#modalSede"
+      (click)="onNewSede()" data-backdrop="static" data-keyboard="false">Nuevo
+    </button>
+    <div class="text-center tipo-letra">Sedes</div>
+  </div>
+  <br>
+  <div class="table-container">
+    <table class="table">
+      <thead class="header-column-color">
+        <tr class="text-center">
+          <th scope="col">Nombre</th>
+          <th scope="col" class="column-small"></th>
+          <th scope="col" class="column-small"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let sede of listSedes | paginate: { itemsPerPage: 6, currentPage: pageNumber, totalItems: total } ">
+          <td *ngIf="sede.nombre">{{sede.nombre}}</td>
+          <td>
+            <button type="button" class="btn" (click)="onEdit(sede.codigo)" data-toggle="modal"
+              data-target="#modalSede" data-backdrop="static" data-keyboard="false" placement="top"
+              ngbTooltip="Editar">
+              <i class="material-icons" aria-hidden="true">edit</i>
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn" (click)="onDelete(sede.codigo)" placement="top"
+              ngbTooltip="Eliminar">
+              <i class="material-icons" aria-hidden="true">delete</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="listSedes.length === 0">
+      <div class="text-center">{{ util.MENSAJE_NO_RESULTADOS }}</div>
+    </div>
+  </div>
+
+  <footer>
+    <pagination-controls (pageChange)="pageNumber = $event" maxSize="9" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Anterior" nextLabel="Siguiente" class="pagination-color text-center">
+    </pagination-controls>
+  </footer>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalSede" tabindex="-1" role="dialog" aria-labelledby="modalSedeLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header fondo-letra-poli">
+        <h5 class="modal-title" id="modalSedeLabel">{{ tituloModal }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body tamano-modal">
+        <form id="formSedes" [formGroup]="formSedes" (ngSubmit)="onSubmit()">
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <textarea type="text" formControlName="nombre" placeholder="Nombre Sede" class="form-control"
+                maxlength="200" [ngClass]="{ 'is-invalid': submitted && fo.nombre.errors }"></textarea>
+              <div *ngIf="submitted && fo.nombre.errors" class="invalid-feedback">
+                <div *ngIf="fo.nombre.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                <div *ngIf="fo.nombre.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }} </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-secondary" data-dismiss="modal" #btnCloseModal
+          (click)="util.onCancel(formSedes)">Cancelar</button>
+        <button type="submit" form="formSedes" class="btn btn-success">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="animated fadeIn fast">
+  <div>
+    <!-- <button type="button" class="btn fondo-letra-poli btn-nuevo-top" data-toggle="modal" data-target="#modalParamGen"
+      (click)="onNewParamGen()" data-backdrop="static" data-keyboard="false">Nuevo
+    </button> -->
+    <div class="text-center tipo-letra">Parámetros Generales</div>
+  </div>
+  <br>
+  <div class="table-container">
+    <table class="table">
+      <thead class="header-column-color">
+        <tr class="text-center">
+          <th scope="col" class="width-nombre">Nombre</th>
+          <th scope="col">Valor</th>
+          <th scope="col" class="column-small"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let ParamGen of listParamGen | paginate: { itemsPerPage: 6, currentPage: pageNumber, totalItems: total } ">
+          <td *ngIf="ParamGen.nombre">{{ParamGen.nombre}}</td>
+          <td *ngIf="ParamGen.valor">{{ParamGen.valor}}</td>
+          <td>
+            <button type="button" class="btn" (click)="onEdit(ParamGen.nombre)" data-toggle="modal"
+              data-target="#modalParamGen" data-backdrop="static" data-keyboard="false" placement="top"
+              ngbTooltip="Editar">
+              <i class="material-icons" aria-hidden="true">edit</i>
+            </button>
+          </td>
+          <!-- <td *ngIf="ParamGen.nombre !== 'Porcentaje Descarga Recursos (%)'">
+            <button type="button" class="btn" (click)="onDelete(ParamGen.nombre)" placement="top" ngbTooltip="Eliminar">
+              <i class="material-icons" aria-hidden="true">delete</i>
+            </button>
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="listParamGen.length === 0">
+      <div class="text-center">{{ util.MENSAJE_NO_RESULTADOS }}</div>
+    </div>
+  </div>
+
+  <footer>
+    <pagination-controls (pageChange)="pageNumber = $event" maxSize="9" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Anterior" nextLabel="Siguiente" class="pagination-color text-center">
+    </pagination-controls>
+  </footer>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalParamGen" tabindex="-1" role="dialog" aria-labelledby="modalParamGenLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header fondo-letra-poli">
+        <h5 class="modal-title" id="modalParamGenLabel">{{ tituloModal }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body tamano-modal">
+        <form id="formParamGen" [formGroup]="formParamGen" (ngSubmit)="onSubmit()">
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <textarea type="text" formControlName="nombre" placeholder="Nombre" class="form-control" maxlength="256"
+                [ngClass]="{ 'is-invalid': submitted && fo.nombre.errors }" readonly></textarea>
+              <div *ngIf="submitted && fo.nombre.errors" class="invalid-feedback">
+                <div *ngIf="fo.nombre.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                <div *ngIf="fo.nombre.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }} </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <textarea type="text" formControlName="valor" placeholder="Valor" class="form-control" maxlength="256"
+                [ngClass]="{ 'is-invalid': submitted && fo.valor.errors }"></textarea>
+              <div *ngIf="submitted && fo.valor.errors" class="invalid-feedback">
+                <div *ngIf="fo.valor.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                <div *ngIf="fo.valor.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }} </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-secondary" data-dismiss="modal" #btnCloseModal
+          (click)="util.onCancel(formParamGen)">Cancelar</button>
+        <button type="submit" form="formParamGen" class="btn btn-success">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

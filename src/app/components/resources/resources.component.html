@@ -1,0 +1,271 @@
+<div class="animated fadeIn fast">
+    <div>
+        <button type="button" class="btn fondo-letra-poli btn-nuevo-top" data-toggle="modal" data-target="#modalResource" (click)="onNewResource()" data-backdrop="static" data-keyboard="false">Nuevo
+        </button>
+        <div class=" text-center tipo-letra">Recursos</div>
+    </div>
+    <br>
+    <div class="table-container">
+        <table class="table">
+            <thead class="header-column-color">
+                <tr class="text-center">
+                    <th scope="col">Título</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col">Facultad</th>
+                    <th scope="col">Tipo Recurso</th>
+                    <th scope="col">Extensión</th>
+                    <th scope="col">Visualizaciones</th>
+                    <th scope="col">Descargas</th>
+                    <th scope="col" class="column-small"></th>
+                    <th scope="col" class="column-small"></th>
+                    <th scope="col" class="column-small"></th>
+                    <th scope="col" class="column-small"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let resource of listResources | paginate: { itemsPerPage: 6, currentPage: pageNumber, totalItems: total } ">
+                    <td>{{resource.titulo}}</td>
+                    <td>{{resource.autor}}</td>
+                    <td>{{resource.arcNombre}}</td>
+                    <td>{{resource.tirNombre}}</td>
+                    <td>{{resource.timNombre}}</td>
+                    <td class="text-center">{{resource.visualizaciones}}</td>
+                    <td class="text-center">{{resource.descargas}}</td>
+                    <td><button type="button" class="btn" *ngIf="loginService.isAuthenticate()"><i
+                                class="material-icons" aria-hidden="true" placement="top" ngbTooltip="Editar"
+                                (click)="onEdit(resource.codigo)" data-toggle="modal" data-target="#modalResource"
+                                data-backdrop="static" data-keyboard="false">edit</i></button></td>
+                    <td><button type="button" class="btn" (click)="openFile(resource.codigo)" placement="top" ngbTooltip="Visualizar"><i class="material-icons">remove_red_eye</i></button></td>
+                    <td><button type="button" class="btn" (click)="downloadFile(resource.codigo, resource.titulo)" placement="top" ngbTooltip="Descargar"><i class="material-icons">cloud_download</i></button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn" (click)="onDelete(resource.codigo)" placement="top" ngbTooltip="Eliminar" *ngIf="loginService.isAuthenticate()">
+                            <i class="material-icons" aria-hidden="true">delete</i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="listResources.length === 0">
+            <div class="text-center">{{ util.MENSAJE_NO_RESULTADOS }}</div>
+        </div>
+    </div>
+    <footer>
+        <pagination-controls (pageChange)="pageNumber = $event" maxSize="9" directionLinks="true" autoHide="true" responsive="true" previousLabel="Anterior" nextLabel="Siguiente" class="pagination-color text-center">
+        </pagination-controls>
+    </footer>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalResource" tabindex="-1" role="dialog" aria-labelledby="modalResourceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header fondo-letra-poli">
+                <h5 class="modal-title" id="modalResourceLabel">{{ tituloModal }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body tamano-modal">
+                <form id="formResource" name="formResource" [formGroup]="formResource" (ngSubmit)="onSubmit()">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" placeholder="Título" maxlength="200" autocomplete="off" formControlName="titulo" [ngClass]="{'is-invalid':submitted && fo.titulo.errors }">
+                            <div *ngIf="submitted && fo.titulo.errors" class="invalid-feedback">
+                                <div *ngIf="fo.titulo.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                                <div *ngIf="fo.titulo.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="txtAutor" placeholder="Autor" maxlength="100" autocomplete="off" formControlName="autor" [ngClass]="{'is-invalid':submitted && fo.autor.errors }">
+                            <div *ngIf="submitted && fo.autor.errors" class="invalid-feedback">
+                                <div *ngIf="fo.autor.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                                <div *ngIf="fo.autor.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="2" maxlength="512" placeholder="Palabras Clave" autocomplete="off" formControlName="palabrasClaves" [ngClass]="{'is-invalid':submitted && fo.palabrasClaves.errors }"></textarea>
+                        <div *ngIf="submitted && fo.palabrasClaves.errors" class="invalid-feedback">
+                            <div *ngIf="fo.palabrasClaves.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                            <div *ngIf="fo.palabrasClaves.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="txtDescripcion" rows="4" maxlength="200" autocomplete="off" placeholder="Descripción (200 Caracteres)" formControlName="descripcion" [ngClass]="{'is-invalid':submitted && fo.descripcion.errors }"></textarea>
+                        <div *ngIf="submitted && fo.descripcion.errors" class="invalid-feedback">
+                            <div *ngIf="fo.descripcion.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="txtEditor" placeholder="Editor" maxlength="100" autocomplete="off" formControlName="editor" [ngClass]="{'is-invalid':submitted && fo.editor.errors }">
+                            <div *ngIf="submitted && fo.editor.errors" class="invalid-feedback">
+                                <div *ngIf="fo.editor.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="txtColaborador" placeholder="Colaborador" maxlength="100" autocomplete="off" formControlName="colaborador" [ngClass]="{'is-invalid':submitted && fo.colaborador.errors }">
+                            <div *ngIf="submitted && fo.colaborador.errors" class="invalid-feedback">
+                                <div *ngIf="fo.colaborador.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" placeholder="Año Elaboración" maxlength="4" autocomplete="off" formControlName="anioElaboracion" [ngClass]="{'is-invalid':submitted && fo.anioElaboracion.errors }">
+                            <div *ngIf="submitted && fo.anioElaboracion.errors" class="invalid-feedback">
+                                <div *ngIf="fo.anioElaboracion.errors.pattern">Solo se permiten números</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <textarea class="form-control" id="txtIdentificador" rows="4" maxlength="200" placeholder="Identificador (200 Caracteres)" autocomplete="off" formControlName="identificador" [ngClass]="{'is-invalid':submitted && fo.identificador.errors }"></textarea>
+                            <small id="txtIdentificadorHelp" class="form-text text-muted">
+                                Se recomienda: URL, ISBN, DOI
+                            </small>
+                            <div *ngIf="submitted && fo.identificador.errors" class="invalid-feedback">
+                                <div *ngIf="fo.identificador.errors.pattern">
+                                    {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <textarea class="form-control" id="txtFuente" rows="4" maxlength="200" placeholder="Fuente (200 Caracteres)" autocomplete="off" formControlName="fuente" [ngClass]="{'is-invalid':submitted && fo.fuente.errors }"></textarea>
+                            <small id="txtFuenteHelp" class="form-text text-muted">
+                                Referencia a un recurso del cual se deriva el recurso actual.
+                            </small>
+                            <div *ngIf="submitted && fo.fuente.errors" class="invalid-feedback">
+                                <div *ngIf="fo.fuente.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <select class="custom-select" id="ddlLenguaje" formControlName="tilCodigo" [ngClass]="{'is-invalid':submitted && fo.tilCodigo.errors}">
+                                <option value="">Seleccione Lenguaje</option>
+                                <option *ngFor="let leng of listLenguajes" [value]="leng.codigo">{{ leng.nombre }}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && fo.tilCodigo.errors" class="invalid-feedback">
+                                <div *ngIf="fo.tilCodigo.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <textarea class="form-control" id="txtRelacion" rows="4" maxlength="200" placeholder="Relación (200 Caracteres)" autocomplete="off" formControlName="relacion" [ngClass]="{'is-invalid':submitted && fo.relacion.errors }"></textarea>
+                            <small id="txtRelacionrHelp" class="form-text text-muted">
+                                Referencia a un recurso relacionado.
+                            </small>
+                            <div *ngIf="submitted && fo.relacion.errors" class="invalid-feedback">
+                                <div *ngIf="fo.relacion.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <textarea class="form-control" id="txtCobertura" rows="4" maxlength="200" placeholder="Cobertura (200 Caracteres)" autocomplete="off" formControlName="cobertura"></textarea>
+                            <small id="txtCoberturaHelp" class="form-text text-muted">
+                                Extensión o ámbito del contenido del recurso.
+                            </small>
+                            <div *ngIf="submitted && fo.cobertura.errors" class="invalid-feedback">
+                                <div *ngIf="fo.cobertura.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <textarea class="form-control" id="txtDerechosAutor" rows="4" maxlength="512" placeholder="Derechos Autor" autocomplete="off" formControlName="derechosAutor" [ngClass]="{'is-invalid':submitted && fo.derechosAutor.errors }"></textarea>
+                            <div *ngIf="submitted && fo.derechosAutor.errors" class="invalid-feedback">
+                                <div *ngIf="fo.derechosAutor.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                                <div *ngIf="fo.derechosAutor.errors.pattern">
+                                    {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <select class="custom-select" id="ddlTipoRecurso" formControlName="tirCodigo" [ngClass]="{'is-invalid':submitted && fo.tirCodigo.errors}">
+                                <option value="">Seleccione Tipo Recurso</option>
+                                <option *ngFor="let tipoRe of listTipoRecursos" [value]="tipoRe.codigo">
+                                    {{ tipoRe.nombre }}</option>
+                            </select>
+                            <div *ngIf="submitted && fo.tirCodigo.errors" class="invalid-feedback">
+                                <div *ngIf="fo.tirCodigo.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <select class="custom-select" id="ddlAreaConocimiento" formControlName="arcCodigo" [ngClass]="{'is-invalid':submitted && fo.arcCodigo.errors}">
+                                <option value="">Seleccione Facultad</option>
+                                <option *ngFor="let areaCo of listAreasConocimiento" [value]="areaCo.codigo">
+                                    {{ areaCo.nombre }}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && fo.arcCodigo.errors" class="invalid-feedback">
+                                <div *ngIf="fo.arcCodigo.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <select class="custom-select" formControlName="sedeCodigo" [ngClass]="{'is-invalid':submitted && fo.sedeCodigo.errors}">
+                                <option value="">Seleccione Sede</option>
+                                <option *ngFor="let sede of listSedes" [value]="sede.codigo">{{ sede.nombre }}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && fo.sedeCodigo.errors" class="invalid-feedback">
+                                <div *ngIf="fo.sedeCodigo.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label>Restringir Descarga</label>
+                            <select class="custom-select" formControlName="indDescargaRestringida">
+                                <option value="S">Sí</option>
+                                <option value="N">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="customFileLang" lang="es" #labelImport>Seleccione un
+                                archivo</label>
+                            <input type="file" class="custom-file-input" id="customFileLang" formControlName="archivo" (change)="handleFileInput($event.target.files)" [ngClass]="{'is-invalid':submitted && fo.archivo.errors}" />
+                            <div *ngIf="submitted && fo.archivo.errors" class="invalid-feedback">
+                                <div *ngIf="fo.archivo.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (clikc)="onCancel" data-dismiss="modal" #btnCloseModal>Cancelar</button>
+                <button type="submit" form="formResource" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #footerTemplateDatePicker>
+    <hr class="my-0">
+    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="clearDatePicker()">Limpiar</button>
+</ng-template>

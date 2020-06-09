@@ -1,0 +1,194 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <select class="custom-select"></select>
+        </div>
+        <div class="col-sm-9">
+            <div class="input-group caja-busqueda">
+                <input class="form-control mr-sm-2 margen" type="search" placeholder="" aria-label="Search" #searchTitle>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success" aria-label="Profile"
+                        (click)="onSearchByTitle($event)">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            <hr>
+            <div class="list-group">
+                <button type="button" class="list-group-item headerMenu">
+                    Facultades
+                </button>
+                <a href="#" class="list-group-item list-group-item-action" *ngFor="let areCon of listAreasConocimiento">{{ areCon.nombre }}</a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="list-group">
+                <button type="button" class="list-group-item headerMenu">
+                    Tipos de recurso
+                </button>
+                <a href="#" class="list-group-item list-group-item-action" *ngFor="let tir of listTipoRecursos">{{ tir.nombre }}</a>
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+            <div *ngFor="let resource of listResource">
+                <div>
+                    <button [routerLink]="['/recurso/', {id: resource.codigo, search:false}]" type="button" class="btn btn-success">Ver registro sencillo del recurso</button>
+                </div>
+                <br>
+                <div>
+                    <h3> {{ resource.title }} </h3>
+                    <hr>
+                </div>
+                <br>
+                <div class="table-container">
+                    <table class="table responsive">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let metadata of listResource">
+                            <tr *ngIf="metadata.creator != ''">
+                                <td class="label">dc.creator</td>
+                                <td>{{ metadata.creator }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.contributor != ''">
+                                <td class="label">dc.contributor</td>
+                                <td>{{ metadata.contributor }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.advice != ''">
+                                <td class="label">dc.contributor.advice</td>
+                                <td>{{ metadata.advice }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.SedeNombre != null">
+                                <td class="label">dc.coverage</td>
+                                <td>{{ metadata.SedeNombre }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.date != null">
+                                <td class="label">dc.date</td>
+                                <td>{{ metadata.date }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.dateAvailable != null">
+                                <td class="label">dc.date.available</td>
+                                <td>{{ metadata.dateAvailable }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.dateCreated != null">
+                                <td class="label">dc.date.created</td>
+                                <td>{{ metadata.dateCreated }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.dateAccepted != null">
+                                <td class="label">dc.date.accepted</td>
+                                <td>{{ metadata.dateAccepted }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.dateValid != null">
+                                <td class="label">dc.date.valid</td>
+                                <td>{{ metadata.dateValid }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.dateModified != null">
+                                <td class="label">dc.date.modified</td>
+                                <td>{{ metadata.dateModified }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.dateIssued != null">
+                                <td class="label">dc.date.issued</td>
+                                <td>{{ metadata.dateIssued }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.description != ''">
+                                <td class="label">dc.description</td>
+                                <td>{{ metadata.description }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.abstract != ''">
+                                <td class="label">dc.abstract</td>
+                                <td>{{ metadata.abstract }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.extend != ''">
+                                <td class="label">dc.format.extend</td>
+                                <td>{{ metadata.extend }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.medium != ''">
+                                <td class="label">dc.format.medium</td>
+                                <td>{{ metadata.medium }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.timCodigo != ''">
+                                <td class="label">dc.format.mimetype</td>
+                                <td>{{ metadata.timNombre }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.tilCodigo != ''">
+                                <td class="label">dc.language</td>
+                                <td>{{ metadata.tilNombre }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.publisher != ''">
+                                <td class="label">dc.publisher</td>
+                                <td>{{ metadata.publisher }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.arcCodigo != ''">
+                                <td class="label">dc.publisher.department</td>
+                                <td>{{ metadata.arcNombre }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.proCodigo != ''">
+                                <td class="label">dc.publisher.program</td>
+                                <td>{{ metadata.proNombre }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.accessRights != ''">
+                                <td class="label">dc.rights.accessRights</td>
+                                <td>{{ metadata.accessRights }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.licence != ''">
+                                <td class="label">dc.rights.licence</td>
+                                <td>{{ metadata.licence }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.relation != ''">
+                                <td class="label">dc.relation</td>
+                                <td>{{ metadata.relation }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.source != ''">
+                                <td class="label">dc.source</td>
+                                <td>{{ metadata.source }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.subject != ''">
+                                <td class="label">dc.subject</td>
+                                <td>{{ metadata.subject }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.title != ''">
+                                <td class="label">dc.title</td>
+                                <td>{{ metadata.title }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.alternative != ''">
+                                <td class="label">dc.title.alternative</td>
+                                <td>{{ metadata.alternative }}</td>
+                            </tr>
+                            <tr *ngIf="metadata.tirCodigo != ''">
+                                <td class="label">dc.type</td>
+                                <td>{{ metadata.tirNombre }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div>
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-3 col-md-3">
+                            <div>
+                                <img class="thumbnail" src="/assets/images/pdf.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6 col-md-6">
+                            <div class="row">
+                                <dt>Nombre: </dt>
+                                <dd class="word-break"> NombrePDF</dd>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+    <br>
+</div>

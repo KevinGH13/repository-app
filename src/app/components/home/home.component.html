@@ -1,0 +1,150 @@
+<div>
+    <div class="container text-center">
+        <h4 class="tipo-fuente-titulo">{{ aplicationName }}</h4>
+        <h4 class="tipo-fuente-titulo">{{ universityName }}</h4>
+        <br>
+        <div class="input-group caja-busqueda">
+            <input class="form-control mr-sm-2 margen" type="search" placeholder="Búsquedas" aria-label="Search" #searchTitle>
+            <span class="input-group-btn">
+        <button type="button" class="btn btn-success" aria-label="Profile" (click)="onSearchByTitle($event)">
+          <i class="fa fa-search"></i>
+        </button>
+      </span>
+        </div>
+        <div class="alinear-derecha-busqueda">
+            <a href="#" data-toggle="modal" data-target="#modalAdvance" data-backdrop="static" data-keyboard="false" class="color-font">Búsqueda Avanzada</a>
+        </div>
+        <!-- Carga de la lista de facultades -->
+        <div>
+            <br>
+            <div class="card-columns margen-container-cards">
+                <div class="card content-card animated fadeIn fast" *ngFor="let facultie of listFacultiesWithIcon">
+                    <!-- [routerLink]="['/resources',facultie.id]" -->
+                    <a [routerLink]="['/discover', { id: facultie.codigo, search:false}]"><img [src]="facultie.rutaIcono" class="card-img-top img-fluid" [alt]="facultie.nombre"></a>
+                    <div class="card-block">
+                        <br>
+                        <h5 class="card-title tipo-letra-arc">{{ facultie.nombre }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalAdvance" tabindex="-1" role="dialog" aria-labelledby="modalAdvanceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header fondo-letra-poli">
+                <h5 class="modal-title" id="modalAdvanceLabel">Búsqueda Avanzada</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body tamano-modal">
+                <form id="formBusquedaAvanzada" [formGroup]="formBusquedaAvanzada" (ngSubmit)="onSubmit()">
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <input type="text" formControlName="titulo" placeholder="Titulo" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': submitted && fo.titulo.errors }">
+                            <div *ngIf="submitted && fo.titulo.errors" class="invalid-feedback">
+                                <div *ngIf="fo.titulo.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }} </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <select class="custom-select" formControlName="cond1">
+                <option value="A">Y</option>
+                <option value="O">O</option>
+              </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <input type="text" formControlName="autor" placeholder="Autor" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': submitted && fo.autor.errors }">
+                            <div *ngIf="submitted && fo.autor.errors" class="invalid-feedback">
+                                <div *ngIf="fo.autor.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }} </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <select class="custom-select" formControlName="cond2">
+                <option value="A">Y</option>
+                <option value="O">O</option>
+              </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <input type="text" formControlName="palabrasClaves" placeholder="Palabras Claves" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': submitted && fo.palabrasClaves.errors }">
+                            <div *ngIf="submitted && fo.palabrasClaves.errors" class="invalid-feedback">
+                                <div *ngIf="fo.palabrasClaves.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }} </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <select class="custom-select" formControlName="cond3">
+                <option value="A">Y</option>
+                <option value="O">O</option>
+              </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <select class="custom-select" id="ddlTipoRecurso" formControlName="tipoRecurso">
+                <option value="">Seleccione un Tipo de Recurso</option>
+                <option *ngFor="let tipoRe of listTipoRecursos" [value]="tipoRe.codigo">{{ tipoRe.nombre }}</option>
+              </select> </div>
+                        <div class="col-md-2 mb-3">
+                            <select class="custom-select" formControlName="cond4">
+                <option value="A">Y</option>
+                <option value="O">O</option>
+              </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <select class="custom-select" id="ddlAreaConocimiento" formControlName="areaConocimiento">
+                <option value="">Seleccione una Facultad</option>
+                <option *ngFor="let areaCo of listFaculties" [value]="areaCo.codigo">{{ areaCo.nombre }}
+                </option>
+              </select>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <select class="custom-select" formControlName="cond5">
+                <option value="A">Y</option>
+                <option value="O">O</option>
+              </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
+                            <select class="custom-select" id="ddlSede" formControlName="sede">
+                <option value="">Seleccione una Sede</option>
+                <option *ngFor="let sede of listSedes" [value]="sede.codigo">{{ sede.nombre }}
+                </option>
+              </select>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <select class="custom-select" formControlName="cond6">
+                <option value="A">Y</option>
+                <option value="O">O</option>
+              </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <textarea class="form-control" id="txtIdentificador" rows="4" maxlength="200" placeholder="Identificador (200 Caracteres)" autocomplete="off" formControlName="identificador" [ngClass]="{'is-invalid':submitted && fo.identificador.errors }"></textarea>
+                            <small id="txtIdentificadorHelp" class="form-text text-muted">
+                Se recomienda: URL, ISBN, DOI
+              </small>
+                            <div *ngIf="submitted && fo.identificador.errors" class="invalid-feedback">
+                                <div *ngIf="fo.identificador.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (clikc)="util.onCancel()" data-dismiss="modal" #btnCloseModal>Cancelar</button>
+                <button type="submit" form="formBusquedaAvanzada" class="btn btn-success">Consultar</button>
+            </div>
+        </div>
+    </div>
+</div>

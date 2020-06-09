@@ -1,0 +1,41 @@
+<!-- Modal -->
+<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header fondo-letra-poli">
+        <h5 class="modal-title" id="modalLoginLabel">Iniciar Sesión</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body tamano-modal">
+        <form id="formLogin" [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <input type="email" class="form-control" aria-describedby="emailHelp"
+              placeholder="Correo Electrónico" formControlName="email" autocomplete="off"
+              [ngClass]="{'is-invalid':submitted && fo.email.errors}" />
+            <div *ngIf="submitted && fo.email.errors" class="invalid-feedback">
+              <div *ngIf="fo.email.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+              <div *ngIf="fo.email.errors.email">Ingrese un correo válido</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Contraseña"
+              formControlName="password" autocomplete="off"
+              [ngClass]="{'is-invalid':submitted && fo.password.errors}" />
+            <div *ngIf="submitted && fo.password.errors" class="invalid-feedback">
+              <div *ngIf="fo.password.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+              <div *ngIf="fo.password.errors.minlength">Contraseña debe contener al menos 8 caracteres</div>
+              <div *ngIf="fo.password.errors.pattern">Caracteres especiales válidos: _ , - , *</div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-secondary" data-dismiss="modal" (click)="onCancel()" #btnCloseModal>Cancelar</button>
+        <button type="submit" form="formLogin" class="btn btn-success">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>

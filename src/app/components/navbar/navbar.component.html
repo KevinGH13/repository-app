@@ -1,0 +1,71 @@
+<div>
+    <div>
+        <div class="logo-bakcground">
+            <img src="/assets/images/logoPCJIC.png" class="tamano" />
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['home']">Inicio</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['discover']">Recursos</a>
+                </li>
+                <li class="nav-item dropdown" *ngIf="loginService.isAuthenticate()">
+                    <a class="nav-link dropdown-toggle" href="#" id="DropdownMenuRecursos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Configuración
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="DropdownMenuRecursos">
+                        <a class="dropdown-item" [routerLink]="['facultades']">Facultades</a>
+                        <a class="dropdown-item" [routerLink]="['programas']">Programas</a>
+                        <a class="dropdown-item" [routerLink]="['sedes']">Sedes</a>
+                        <a class="dropdown-item" [routerLink]="['tipos-documentos']">Tipos de Recursos</a>
+                        <a class="dropdown-item" [routerLink]="['parametros-generales']">Parámetros Generales</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" [routerLink]="['users']">Usuarios</a>
+                        <a class="dropdown-item" [routerLink]="['roles']">Roles</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline">
+                <div *ngIf="loginService.isAuthenticate()">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="DropdownCuenta" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Cuenta
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="DropdownCuenta">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalPassword">Cambiar
+                                    Contraseña</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" (click)="onLogout()">Cerrar Sesión</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- <div *ngIf="loginService.isAuthenticate()" data-toggle="modal" data-target="#modalPassword">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active">
+              <a class="nav-link">Cambiar Contraseña</a>
+            </li>
+          </ul>
+        </div> -->
+                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalLogin" data-backdrop="static" data-keyboard="false" *ngIf="!loginService.isAuthenticate()">
+                    Iniciar Sesión
+                </button>
+                <!-- <button type="button" class="btn btn-outline-success" *ngIf="loginService.isAuthenticate()"
+          (click)="onLogout()">Cerrar Sesión</button> -->
+            </form>
+        </div>
+    </nav>
+</div>
+
+<app-login></app-login>
+<app-change-password></app-change-password>

@@ -1,0 +1,30 @@
+<div class="animated fadeIn fast">
+  <div>
+    <div class="text-center tipo-letra">Roles</div>
+  </div>
+  <br>
+  <div class="table-container">
+    <table class="table">
+      <thead class="header-column-color">
+        <tr class="text-center">
+          <th scope="col">Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let Rol of listRoles | paginate: { itemsPerPage: 6, currentPage: pageNumber, totalItems: total } ">
+          <td *ngIf="Rol.nombre" class="text-center">{{Rol.nombre}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="listRoles.length === 0">
+      <div class="text-center">{{ util.MENSAJE_NO_RESULTADOS }}</div>
+    </div>
+  </div>
+
+  <footer>
+    <pagination-controls (pageChange)="pageNumber = $event" maxSize="9" directionLinks="true" autoHide="true"
+      responsive="true" previousLabel="Anterior" nextLabel="Siguiente" class="pagination-color text-center">
+    </pagination-controls>
+  </footer>
+</div>

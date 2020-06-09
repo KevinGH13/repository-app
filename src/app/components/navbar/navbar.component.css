@@ -1,0 +1,21 @@
+.logo-bakcground {
+  background-color: #196844;
+}
+
+.background-div-session {
+  background-color: #2a4723;
+}
+
+.alinear-derecha {
+  float: right;
+}
+
+.dropdown-item:active {
+  background-color: #19a565e6;
+}
+
+@media screen and (max-width: 576px) {
+  .tamano {
+      width: 90%;
+  }
+}

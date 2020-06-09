@@ -1,0 +1,161 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    background: transparent;
+    /*height: 100% !important;*/
+    margin: 0;
+    padding: 0;
+    padding-right: 0px !important;
+}
+
+.footer {
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    background-color: #535353;
+    color: #ffffff;
+    margin: 0px auto;
+    width: 100%;
+    padding: 15px 0px;
+    margin-top: auto;
+}
+
+.main-container {
+    margin-top: 3em;
+    max-width: 90%;
+    height: 85%;
+}
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.fast {
+    -webkit-animation-duration: 0.4s;
+    animation-duration: 0.4s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.div {
+    display: block;
+}
+
+#Sidebar {
+    border: 1px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+}
+
+.pagination-color /deep/ .ngx-pagination .current {
+    background-color: #19a565e6;
+}
+
+.header-column-color {
+    background-color: #e8c63e;
+}
+
+.alineacion-derecha {
+    float: right;
+}
+
+.fondo-letra-poli {
+    background-color: #19a565e6;
+    color: white;
+}
+
+.column-small {
+    width: 0.5em;
+}
+
+.table-container {
+    min-height: 27em;
+}
+
+.alineacion-izquierda {
+    float: left;
+}
+
+.tipo-letra {
+    font-family: "Bahnschrift Condensed";
+    font-weight: bold;
+    font-size: 2.5em;
+    margin-top: -1em;
+}
+
+.btn-nuevo-top {
+    float: right;
+    margin-top: 2em;
+}
+
+h2,
+h3,
+a {
+    color: #19a565e6;
+}
+
+.headerMenu {
+    background-color: #e8c63e;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.artifact {
+    margin-bottom: 30px;
+}
+
+.img-thumbnail {
+    padding: 4px;
+    line-height: 1.428571429;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.author {
+    color: #555;
+}
+
+.description {
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.label {
+    font-weight: bold;
+}
+
+@media screen and (max-width: 736px) {
+    .main-container {
+        margin-top: 3em;
+        height: 70%;
+    }
+    .caja-busqueda {
+        margin: 0 0 0 0em;
+    }
+    .table-container {
+        overflow-x: auto;
+    }
+}
+
+
+/*
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/

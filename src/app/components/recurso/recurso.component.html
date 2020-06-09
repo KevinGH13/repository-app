@@ -1,0 +1,150 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <select class="custom-select"></select>
+        </div>
+        <div class="col-sm-9">
+            <div class="input-group caja-busqueda">
+                <input class="form-control mr-sm-2 margen" type="search" placeholder="" aria-label="Search" #searchTitle>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success" aria-label="Profile"
+                        (click)="onSearchByTitle($event)">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="list-group" *ngIf="loginService.isAuthenticate()">
+                <button type="button" class="list-group-item headerMenu">
+                    Recurso
+                </button>
+                <a href="#" data-toggle="modal" data-target="#modalResource" (click)="onNewResource()" data-backdrop="static" data-keyboard="false" class="list-group-item list-group-item-action">Crear
+                    Nuevo Recurso</a>
+            </div>
+            <hr>
+            <div class="list-group">
+                <button type="button" class="list-group-item headerMenu">
+                    Facultades
+                </button>
+                <a href="#" class="list-group-item list-group-item-action" *ngFor="let areCon of listAreasConocimiento">{{ areCon.nombre }}</a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="list-group">
+                <button type="button" class="list-group-item headerMenu">
+                    Tipos de recurso
+                </button>
+                <a href="#" class="list-group-item list-group-item-action" *ngFor="let tir of listTipoRecursos">{{ tir.nombre }}</a>
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+            <div>
+                <div *ngFor="let resource of listResource">
+                    <h3>{{ resource.title }}</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="item-resource">
+                                <h5>Resumen</h5>
+                                <div>
+                                    {{ resource.abstract }}
+                                </div><br>
+                            </div>
+                            <div class="item-resource">
+                                <h5>Palabras clave</h5>
+                                <div>
+                                    {{ resource.subject }}
+                                </div>
+                                <br>
+                                <!--<a href="">Palabra clave</a>
+                                <br>
+                                <a href="">Palabra clave</a>
+                                <br> -->
+                            </div>
+                            <div class="item-resource">
+                                <h5>Autor(es)</h5>
+                                <div>
+                                    {{ resource.creator }}
+                                </div><br>
+                            </div>
+                            <div class="item-resource" *ngIf="resource.advice != null">
+                                <h5>Asesor(a)</h5>
+                                <div>
+                                    {{ resource.advice }}
+                                </div><br>
+                            </div>
+                            <div class="item-resource">
+                                <h5>Publicador</h5>
+                                <div>
+                                    {{ resource.publisher }}
+                                </div><br>
+                            </div>
+                            <div class="item-resource">
+                                <h5>Facultad</h5>
+                                <div>
+                                    {{ resource.arcNombre }}
+                                </div><br>
+                            </div>
+                            <div class="item-resource" *ngIf="resource.program != null">
+                                <h5>Programa</h5>
+                                <div>
+                                    {{ resource.proNombre }}
+                                </div>
+                                <br>
+                            </div>
+                            <div class="item-resource">
+                                <h5>Tipo</h5>
+                                <div>
+                                    {{ resource.tirNombre }}
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>
+                                <img class="thumbnail" src="/assets/images/pdf.png" alt="">
+                            </div>
+                            <br>
+                            <div class="item-resource">
+                                <h5>Ver/Descargar</h5>
+                                <a href="">link de descarga</a>
+                            </div>
+                            <br>
+                            <div class="item-resource">
+                                <h5>Fecha de creacion del recurso</h5>
+                                <div>
+                                    {{ resource.dateCreated | date: 'yyyy-MM-dd' }}
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                <h5>Metadatos</h5>
+                                <button [routerLink]="['/metadata/', {id: resource.codigo}]" type="button" class="btn btn-success">Ver registro
+                                    completo de
+                                    metadatos</button>
+                            </div>
+                            <br>
+                            <div>
+                                <h5>Estadisticas</h5>
+                                <div class="row">
+                                    <div class="col-sm-2">
+
+                                    </div>
+                                    <div class="col-sm-2">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>
