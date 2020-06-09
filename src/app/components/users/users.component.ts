@@ -19,6 +19,7 @@ export class UsersComponent implements OnInit {
   listRoles: any[] = [];
   listStates: any[] = [];
   pageNumber: number;
+  total: number;
   formUser: FormGroup;
   submitted = false;
   private formBuilder: FormBuilder = new FormBuilder();
@@ -55,14 +56,14 @@ export class UsersComponent implements OnInit {
       apellidos: ['', [Validators.required, Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', [Validators.required, Validators.minLength(8),
-        Validators.maxLength(15), Validators.pattern('^[*A-Za-z0-9_-]+$')]],
+      Validators.maxLength(15), Validators.pattern('^[*A-Za-z0-9_-]+$')]],
       contrasenaConfirm: ['', [Validators.required, Validators.minLength(8),
       Validators.maxLength(15), Validators.pattern('^[*A-Za-z0-9_-]+$')]],
       codigoRol: ['', null],
       codigoEstadoUsuario: ['', null]
     }, {
-        validator: this.util.MustMatch('contrasena', 'contrasenaConfirm')
-      });
+      validator: this.util.MustMatch('contrasena', 'contrasenaConfirm')
+    });
   }
 
   get fo() { return this.formUser.controls; }

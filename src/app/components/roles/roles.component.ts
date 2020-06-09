@@ -12,6 +12,8 @@ export class RolesComponent implements OnInit {
 
   listRoles: any[] = [];
   util: Util = new Util();
+  total: number;
+  pageNumber: number;
 
   constructor(private rolService: RolesService, private router: Router) { }
 

@@ -190,4 +190,10 @@ export class MetadataComponent implements OnInit {
         }
       });
   }
+
+  onSearchByTitle(event: any) {
+    // const titleValue = this.txtSearchTitle.nativeElement.value;
+    // localStorage.setItem('SearchTitle', titleValue);
+    // this.router.navigate(['/discover', { title: titleValue }]);
+  }
 }

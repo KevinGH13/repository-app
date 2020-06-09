@@ -18,6 +18,8 @@ export class SedesComponent implements OnInit {
   formBuilder: FormBuilder = new FormBuilder();
   util: Util = new Util();
   submitted = false;
+  total: number;
+  pageNumber: number;
   tituloModal = 'Nueva Sede';
   operacion: string;
   @ViewChild('btnCloseModal') btnCloseModal: ElementRef;
@@ -56,7 +58,7 @@ export class SedesComponent implements OnInit {
           this.util.manageResponseFalse(response);
         }
       },
-      error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
   onEdit(codigoSede: string) {
@@ -80,7 +82,7 @@ export class SedesComponent implements OnInit {
             this.util.manageResponseFalse(response);
           }
         },
-        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+          error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
     }
   }
 
@@ -117,7 +119,7 @@ export class SedesComponent implements OnInit {
           this.util.manageResponseFalse(response);
         }
       },
-      error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
   actionAfterPostSuccess(response: ResponseModel) {

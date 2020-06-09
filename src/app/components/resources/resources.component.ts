@@ -23,6 +23,7 @@ export class ResourcesComponent implements OnInit {
   listTipoRecursos: any[] = [];
   listSedes: any[] = [];
   pageNumber: number;
+  total: number;
   today: Date = new Date();
   maxDate: NgbDateStruct;
   formResource: FormGroup;
@@ -37,7 +38,7 @@ export class ResourcesComponent implements OnInit {
   @ViewChild('labelImport') labelImport: ElementRef;
 
   constructor(private resourcesService: ResourcesService, private activatedRoute: ActivatedRoute,
-    private loginService: LoginService, private router: Router, private sedesService: SedesService) {
+    public loginService: LoginService, private router: Router, private sedesService: SedesService) {
     this.pageNumber = 1;
     this.maxDate = {
       year: this.today.getFullYear(),

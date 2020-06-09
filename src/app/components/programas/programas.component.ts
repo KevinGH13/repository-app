@@ -18,6 +18,8 @@ export class ProgramasComponent implements OnInit {
   formBuilder: FormBuilder = new FormBuilder();
   util: Util = new Util();
   submitted = false;
+  total: number;
+  pageNumber: number;
   tituloModal = 'Nuevo Programa';
   operacion: string;
   @ViewChild('btnCloseModal') btnCloseModal: ElementRef;

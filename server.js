@@ -4,6 +4,6 @@ const app = express();
 app.use(express.static(__dirname + '/dist/repository-app'));
 app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirnname +
-        '/dist/repository-app/index.hmtl'));
+        '/dist/repository-app/index.html'));
 });
 app.listen(process.env.PORT || 8080);

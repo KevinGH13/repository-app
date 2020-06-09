@@ -18,6 +18,8 @@ export class ParametrosGeneralesComponent implements OnInit {
   formBuilder: FormBuilder = new FormBuilder();
   util: Util = new Util();
   submitted = false;
+  pageNumber: number;
+  total: number;
   tituloModal = 'Nuevo Parámetro General';
   operacion: string;
   @ViewChild('btnCloseModal') btnCloseModal: ElementRef;
@@ -58,7 +60,7 @@ export class ParametrosGeneralesComponent implements OnInit {
           this.util.manageResponseFalse(response);
         }
       },
-      error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
   onEdit(nombreParametro: string) {
@@ -92,7 +94,7 @@ export class ParametrosGeneralesComponent implements OnInit {
             this.util.manageResponseFalse(response);
           }
         },
-        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+          error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
     }
   }
 
@@ -129,7 +131,7 @@ export class ParametrosGeneralesComponent implements OnInit {
           this.util.manageResponseFalse(response);
         }
       },
-      error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
   actionAfterPostSuccess(response: ResponseModel) {

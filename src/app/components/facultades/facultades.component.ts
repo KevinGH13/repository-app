@@ -18,6 +18,8 @@ export class FacultadesComponent implements OnInit {
   formBuilder: FormBuilder = new FormBuilder();
   util: Util = new Util();
   submitted = false;
+  pageNumber: number;
+  total: number;
   tituloModal = 'Nueva Facultad';
   operacion: string;
   @ViewChild('btnCloseModal') btnCloseModal: ElementRef;
@@ -56,7 +58,7 @@ export class FacultadesComponent implements OnInit {
           this.util.manageResponseFalse(response);
         }
       },
-      error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
   onEdit(codigoFacultad: string) {
@@ -80,7 +82,7 @@ export class FacultadesComponent implements OnInit {
             this.util.manageResponseFalse(response);
           }
         },
-        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+          error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
     }
   }
 
@@ -117,7 +119,7 @@ export class FacultadesComponent implements OnInit {
           this.util.manageResponseFalse(response);
         }
       },
-      error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
   actionAfterPostSuccess(response: ResponseModel) {

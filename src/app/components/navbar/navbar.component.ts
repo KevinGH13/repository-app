@@ -10,7 +10,7 @@ import { LoginService } from '../../services/login.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, public loginService: LoginService) { }
 
   ngOnInit() {
   }

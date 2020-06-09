@@ -27,6 +27,7 @@ export class RecursoComponent implements OnInit {
   listSedes: any[] = [];
   metadata: any;
   pageNumber: number;
+  total: number;
   today: Date = new Date();
   maxDate: NgbDateStruct;
   formResource: FormGroup;
@@ -491,6 +492,12 @@ export class RecursoComponent implements OnInit {
           this.meta.updateTag({ name: 'DCTERMS.alternative', content: this.metadata[0].alternative });
         }
       });
+  }
+
+  onSearchByTitle(event: any) {
+    // const titleValue = this.txtSearchTitle.nativeElement.value;
+    // localStorage.setItem('SearchTitle', titleValue);
+    // this.router.navigate(['/discover', { title: titleValue }]);
   }
 
 }
