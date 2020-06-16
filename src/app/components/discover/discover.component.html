@@ -14,7 +14,6 @@
                             (click)="onSearchByTitle($event)">
                             <i class="fa fa-search"></i>
                         </button>
-
                     </span>
                 </div>
                 <div class="alineacion-derecha">
@@ -94,7 +93,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-sm-9 ">
+                        <div class="col-sm-9">
                             <a [routerLink]="['/recurso/', {id: resource.codigo, search:false}]">
                                 <h5>{{ resource.title }}</h5>
                             </a>

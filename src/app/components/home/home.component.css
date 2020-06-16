@@ -17,15 +17,15 @@
 }
 
 .tipo-fuente-titulo {
-    font-family: 'Bahnschrift Condensed';
+    font-family: "Bahnschrift Condensed";
     font-weight: bold;
-    font-size: 3em;
+    font-size: 2em;
 }
 
 .tipo-letra-arc {
-    font-family: 'Bahnschrift Condensed';
+    font-family: "Bahnschrift Condensed";
     font-weight: bold;
-    font-size: 1.47em;
+    font-size: 1.2em;
 }
 
 .caja-busqueda {
@@ -33,7 +33,7 @@
     margin: 0 0 0 5.5em;
 }
 
-.alinear-derecha-busqueda{
+.alinear-derecha-busqueda {
     width: 40%;
     float: right;
 }
@@ -42,32 +42,26 @@
     color: #196844;
 }
 
-
 @media screen and (max-width: 736px) {
     .caja-busqueda {
         width: 100%;
         margin: 0 0 0 0em;
     }
-
     .alinear-derecha-busqueda {
         width: 53%;
         float: right;
     }
-
     .tipo-fuente-titulo {
-        font-family: 'Bahnschrift Condensed';
+        font-family: "Bahnschrift Condensed";
         font-weight: bold;
         font-size: 2em;
     }
-
     .margen {
-        margin-right: .4em;
+        margin-right: 0.4em;
     }
-
     .content-card {
         margin-right: 1em !important;
     }
-
     .margen-container-cards {
         margin-left: 0em;
     }

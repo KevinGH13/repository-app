@@ -26,7 +26,7 @@ export class LoginService {
   setToken(infoToken: any) {
     localStorage.setItem('token', infoToken.token);
     localStorage.setItem('expToken', infoToken.expiration);
-    this.router.navigate(['/home']);
+    this.router.navigate(['/discover']);
   }
 
   getToken() {

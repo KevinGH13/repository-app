@@ -40,6 +40,7 @@ export class RecursoComponent implements OnInit {
   fileToUpload: File;
   @ViewChild('btnCloseModal') btnCloseModal: ElementRef;
   @ViewChild('labelImport') labelImport: ElementRef;
+  @ViewChild('searchTitle') txtSearchTitle: ElementRef;
 
   constructor(private resourcesService: ResourcesService, private activatedRoute: ActivatedRoute,
     public loginService: LoginService, private router: Router, private sedesService: SedesService, private meta: Meta) {
@@ -200,42 +201,38 @@ export class RecursoComponent implements OnInit {
   CreateFormValidation() {
     this.formResource = this.formBuilder.group({
       codigo: ['', null],
-      title: ['', [Validators.required, Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      alternative: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      description: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
-      abstract: ['', [Validators.pattern('^[^<>]+$')]],
-      subject: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
-      source: ['', [Validators.pattern('^[^<>]+$')]],
-      relation: ['', [Validators.pattern('^[^<>]+$')]],
-      creator: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      publisher: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      contributor: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      advice: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      rights: ['', [Validators.required, Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      accessRights: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      licence: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      date: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      dateAvailable: ['', Validators.pattern('^[0-9]+$')],
-      dateCreated: ['', Validators.pattern('^[0-9]+$')],
-      dateAccepted: ['', Validators.pattern('^[0-9]+$')],
-      dateValid: ['', Validators.pattern('^[0-9]+$')],
-      dateModified: ['', Validators.pattern('^[0-9]+$')],
-      dateIssued: ['', Validators.pattern('^[0-9]+$')],
-      year: ['', Validators.pattern('^[0-9]+$')],
-      format: ['', [Validators.pattern('^[^<>]+$')]],
-      extend: ['', [Validators.pattern('^[^<>]+$')]],
-      medium: ['', [Validators.pattern('^[^<>]+$')]],
-      identifier: ['', [Validators.pattern('^[^<>]+$')]],
-      doi: ['', [Validators.pattern('^[^<>]+$')]],
-      uri: ['', [Validators.pattern('^[^<>]+$')]],
-      issn: ['', [Validators.pattern('^[^<>]+$')]],
-      isbn: ['', [Validators.pattern('^[^<>]+$')]],
-      timCodigo: ['', [Validators.required]],
-      tilCodigo: ['', [Validators.required]],
-      tirCodigo: ['', [Validators.required]],
-      arcCodigo: ['', [Validators.required]],
-      proCodigo: ['', [Validators.required]],
-      archivo: ['', [Validators.required]],
+      title: ['', Validators.required],
+      alternative: ['', null],
+      description: ['', Validators.required],
+      abstract: ['', null],
+      subject: ['', Validators.required],
+      source: ['', null],
+      relation: ['', null],
+      creator: ['', Validators.required],
+      publisher: ['', Validators.required],
+      contributor: ['', null],
+      advice: ['', null],
+      accessRights: ['', null],
+      licence: ['', null],
+      dateAvailable: ['', null],
+      dateCreated: ['', Validators.required],
+      dateAccepted: ['', null],
+      dateValid: ['', null],
+      dateModified: ['', null],
+      dateIssued: ['', null],
+      format: ['', null],
+      extend: ['', null],
+      medium: ['', null],
+      identifier: ['', null],
+      doi: ['', null],
+      uri: ['', null],
+      issn: ['', null],
+      isbn: ['', null],
+      tilCodigo: ['', Validators.required],
+      tirCodigo: ['', Validators.required],
+      arcCodigo: ['', Validators.required],
+      proCodigo: ['', Validators.required],
+      archivo: ['', Validators.required],
       visualizaciones: ['', null],
       descargas: ['', null],
       sedeCodigo: ['', Validators.required],
@@ -275,51 +272,48 @@ export class RecursoComponent implements OnInit {
   }
 
   onEdit(codigoRecurso: string) {
+    console.log('entra al edit');
     this.tituloModal = 'Editar Recurso';
     this.operacion = 'MOD';
-    const resourceSelected = this.listResources.filter(x => x.codigo === codigoRecurso)[0];
+    const resourceSelected = this.listResource[0];
     this.formResource = this.formBuilder.group({
       codigo: [resourceSelected.codigo, null],
-      title: [resourceSelected.title, [Validators.required, Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      alternative: [resourceSelected.alternative, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      description: [resourceSelected.description, [Validators.required, Validators.pattern('^[^<>]+$')]],
-      abstract: [resourceSelected.alternative, [Validators.pattern('^[^<>]+$')]],
-      subject: [resourceSelected.subject, [Validators.required, Validators.pattern('^[^<>]+$')]],
-      source: [resourceSelected.source, [Validators.pattern('^[^<>]+$')]],
-      relation: [resourceSelected.relation, [Validators.pattern('^[^<>]+$')]],
-      creator: [resourceSelected.creator, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      publisher: [resourceSelected.publisher, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      contributor: [resourceSelected.contributor, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      advice: [resourceSelected.advice, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      rights: [resourceSelected.rights, [Validators.required, Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      accessRights: [resourceSelected.accessRights, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      licence: [resourceSelected.licence, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      date: [resourceSelected.date, [Validators.required, Validators.pattern('^[0-9]+$')]],
-      dateAvailable: [resourceSelected.dateAvailable, Validators.pattern('^[0-9]+$')],
-      dateCreated: [resourceSelected.dateCreated, Validators.pattern('^[0-9]+$')],
-      dateAccepted: [resourceSelected.dateAccepted, Validators.pattern('^[0-9]+$')],
-      dateValid: [resourceSelected.dateValid, Validators.pattern('^[0-9]+$')],
-      dateModified: [resourceSelected.dateModified, Validators.pattern('^[0-9]+$')],
-      dateIssued: [resourceSelected.dateIssued, Validators.pattern('^[0-9]+$')],
-      year: [resourceSelected.year, Validators.pattern('^[0-9]+$')],
-      format: [resourceSelected.format, [Validators.pattern('^[^<>]+$')]],
-      extend: [resourceSelected.extend, [Validators.pattern('^[^<>]+$')]],
-      medium: [resourceSelected.medium, [Validators.pattern('^[^<>]+$')]],
-      identifier: [resourceSelected.identifier, [Validators.pattern('^[^<>]+$')]],
-      doi: [resourceSelected.doi, [Validators.pattern('^[^<>]+$')]],
-      uri: [resourceSelected.uri, [Validators.pattern('^[^<>]+$')]],
-      issn: [resourceSelected.issn, [Validators.pattern('^[^<>]+$')]],
-      isbn: [resourceSelected.isbn, [Validators.pattern('^[^<>]+$')]],
-      timCodigo: [resourceSelected.timCodigo, [Validators.required]],
-      tilCodigo: [resourceSelected.tilCodigo, [Validators.required]],
-      tirCodigo: [resourceSelected.tirCodigo, [Validators.required]],
-      arcCodigo: [resourceSelected.arcCodigo, [Validators.required]],
-      proCodigo: [resourceSelected.proCodigo, [Validators.required]],
-      archivo: ['', [Validators.required]],
+      title: [resourceSelected.title, Validators.required],
+      alternative: [resourceSelected.alternative],
+      description: [resourceSelected.description],
+      abstract: [resourceSelected.alternative],
+      subject: [resourceSelected.subject, Validators.required],
+      source: [resourceSelected.source],
+      relation: [resourceSelected.relation],
+      creator: [resourceSelected.creator],
+      publisher: [resourceSelected.publisher],
+      contributor: [resourceSelected.contributor],
+      advice: [resourceSelected.advice],
+      accessRights: [resourceSelected.accessRights],
+      licence: [resourceSelected.licence],
+      dateAvailable: [resourceSelected.dateAvailable],
+      dateCreated: [resourceSelected.dateCreated],
+      dateAccepted: [resourceSelected.dateAccepted],
+      dateValid: [resourceSelected.dateValid],
+      dateModified: [resourceSelected.dateModified],
+      dateIssued: [resourceSelected.dateIssued],
+      extend: [resourceSelected.extend],
+      medium: [resourceSelected.medium],
+      identifier: [resourceSelected.identifier],
+      doi: [resourceSelected.doi],
+      uri: [resourceSelected.uri],
+      issn: [resourceSelected.issn],
+      isbn: [resourceSelected.isbn],
+      timCodigo: [resourceSelected.timCodigo],
+      tilCodigo: [resourceSelected.tilCodigo],
+      tirCodigo: [resourceSelected.tirCodigo],
+      arcCodigo: [resourceSelected.arcCodigo],
+      proCodigo: [resourceSelected.proCodigo],
+      archivo: [''],
       visualizaciones: [resourceSelected.visualizaciones, null],
       descargas: [resourceSelected.descargas, null],
-      sedeCodigo: [resourceSelected.sedeCodigo, Validators.required],
-      indDescargaRestringida: [resourceSelected.indDescargaRestringida, Validators.required]
+      sedeCodigo: [resourceSelected.sedeCodigo],
+      indDescargaRestringida: [resourceSelected.indDescargaRestringida]
     });
   }
 
@@ -351,12 +345,13 @@ export class RecursoComponent implements OnInit {
       then(result => {
         if (result.value) {
           this.deleteTipoRecurso(codigoRecurso);
+          this.router.navigate(['/discover']);
         }
       });
   }
 
   deleteTipoRecurso(codigoRecurso: string): void {
-    const resourceSelected = this.listResources.filter(x => x.codigo === codigoRecurso)[0];
+    const resourceSelected = this.listResource[0];
     this.resourcesService.deleteResource(resourceSelected)
       .subscribe(response => {
         if (response.status) {
@@ -495,9 +490,9 @@ export class RecursoComponent implements OnInit {
   }
 
   onSearchByTitle(event: any) {
-    // const titleValue = this.txtSearchTitle.nativeElement.value;
+    const titleValue = this.txtSearchTitle.nativeElement.value;
     // localStorage.setItem('SearchTitle', titleValue);
-    // this.router.navigate(['/discover', { title: titleValue }]);
+    this.router.navigate(['/discover', { title: titleValue }]);
   }
 
 }

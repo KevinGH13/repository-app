@@ -282,10 +282,8 @@ export class DiscoverComponent implements OnInit {
           if (response.status) {
             this.actionAfterPostSuccess(response);
             this.labelImport.nativeElement.innerHTML = 'Seleccione un archivo';
-            console.log(this.actionAfterPostSuccess(response));
           } else {
             this.util.manageResponseFalse(response);
-            console.log(this.util.manageResponseFalse(response));
           }
         },
           error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
@@ -358,7 +356,6 @@ export class DiscoverComponent implements OnInit {
       this.btnCloseModal.nativeElement.click();
     }
     this.util.manageResponseTrue(response);
-    console.log(this.util.manageResponseTrue(response));
     this.getResources();
     this.onNewResource();
   }
