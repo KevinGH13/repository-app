@@ -28,6 +28,7 @@ export class DiscoverComponent implements OnInit {
   today: Date = new Date();
   maxDate: NgbDateStruct;
   formResource: FormGroup;
+  formBusquedaAvanzada: FormGroup;
   util: Util = new Util();
   submitted = false;
   fechaGrid: Date;
@@ -174,7 +175,7 @@ export class DiscoverComponent implements OnInit {
   searchResourceById() {
     this.activatedRoute.params.subscribe(params => {
       if (params.id) {
-        this.listResources = this.listResources.filter(x => x.arcCodigo === params.id);
+        this.listResources = this.listResources.filter(x => (x.arcCodigo && x.tirCodigo) === params.id);
       }
     },
       error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
@@ -197,24 +198,21 @@ export class DiscoverComponent implements OnInit {
       codigo: ['', null],
       title: ['', Validators.required],
       alternative: ['', null],
-      description: ['', Validators.required],
-      abstract: ['', null],
+      abstract: ['', Validators.required],
       subject: ['', Validators.required],
       source: ['', null],
       relation: ['', null],
       creator: ['', Validators.required],
-      publisher: ['', Validators.required],
+      publisher: ['', null],
       contributor: ['', null],
       advice: ['', null],
-      accessRights: ['', null],
+      accessRights: ['Derechos Patrimoniales', null],
       licence: ['', null],
-      dateAvailable: ['', null],
       dateCreated: ['', Validators.required],
       dateAccepted: ['', null],
       dateValid: ['', null],
       dateModified: ['', null],
       dateIssued: ['', null],
-      format: ['', null],
       extend: ['', null],
       medium: ['', null],
       identifier: ['', null],
@@ -223,14 +221,16 @@ export class DiscoverComponent implements OnInit {
       issn: ['', null],
       isbn: ['', null],
       tilCodigo: ['', Validators.required],
+      proCodigo: ['', Validators.required],
       tirCodigo: ['', Validators.required],
       arcCodigo: ['', Validators.required],
-      proCodigo: ['', Validators.required],
       archivo: ['', Validators.required],
       visualizaciones: ['', null],
       descargas: ['', null],
       sedeCodigo: ['', Validators.required],
-      indDescargaRestringida: ['N', Validators.required]
+      indDescargaRestringida: ['N', Validators.required],
+      year: ['', null],
+      spatial: ['', null],
       /*
       codigo: ['', null],
       title: ['', [Validators.required, Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
@@ -271,11 +271,27 @@ export class DiscoverComponent implements OnInit {
       sedeCodigo: ['', Validators.required],
       indDescargaRestringida: ['N', Validators.required]*/
     });
+    this.formBusquedaAvanzada = this.formBuilder.group({
+      titulo: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
+      autor: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
+      palabrasClaves: ['', [Validators.pattern('^[^<>]+$')]],
+      tipoLenguaje: ['', null],
+      tipoRecurso: ['', null],
+      areaConocimiento: ['', null],
+      sede: ['', null],
+      cond1: ['A', null],
+      cond2: ['A', null],
+      cond3: ['A', null],
+      cond4: ['A', null],
+      cond5: ['A', null],
+      cond6: ['A', null]
+    });
   }
 
   onSubmit() {
     this.submitted = true;
     console.log(this.formResource.valid);
+    console.log(this.formResource);
     if (this.formResource.valid) {
       this.resourcesService.addEditResource(this.formResource.value, this.operacion, this.fileToUpload)
         .subscribe(response => {
@@ -441,6 +457,23 @@ export class DiscoverComponent implements OnInit {
     const titleValue = this.txtSearchTitle.nativeElement.value;
     // localStorage.setItem('SearchTitle', titleValue);
     this.router.navigate(['/discover', { title: titleValue }]);
+  }
+
+  buildAdvancedSearchModel() {
+    return {
+      Titulo: this.formBusquedaAvanzada.value.titulo,
+      CondicionUno: this.formBusquedaAvanzada.value.cond1,
+      Autor: this.formBusquedaAvanzada.value.autor,
+      CondicionDos: this.formBusquedaAvanzada.value.cond2,
+      PalabrasClave: this.formBusquedaAvanzada.value.palabrasClaves,
+      CondicionTres: this.formBusquedaAvanzada.value.cond3,
+      TirCodigo: this.formBusquedaAvanzada.value.tipoRecurso,
+      CondicionCuatro: this.formBusquedaAvanzada.value.cond4,
+      ArcCodigo: this.formBusquedaAvanzada.value.areaConocimiento,
+      CondicionCinco: this.formBusquedaAvanzada.value.cond5,
+      SedeCodigo: this.formBusquedaAvanzada.value.sede,
+      CondicionSeis: this.formBusquedaAvanzada.value.cond6,
+    };
   }
 
 }

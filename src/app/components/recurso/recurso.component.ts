@@ -191,6 +191,7 @@ export class RecursoComponent implements OnInit {
       .subscribe(response => {
         if (response.status) {
           this.listResource = response.information;
+          console.log(this.listResource[0]);
         } else {
           this.util.manageResponseFalse(response);
         }
@@ -203,18 +204,16 @@ export class RecursoComponent implements OnInit {
       codigo: ['', null],
       title: ['', Validators.required],
       alternative: ['', null],
-      description: ['', Validators.required],
-      abstract: ['', null],
+      abstract: ['', Validators.required],
       subject: ['', Validators.required],
       source: ['', null],
       relation: ['', null],
       creator: ['', Validators.required],
-      publisher: ['', Validators.required],
+      publisher: ['', null],
       contributor: ['', null],
       advice: ['', null],
-      accessRights: ['', null],
+      accessRights: ['Derechos Patrimoniales', null],
       licence: ['', null],
-      dateAvailable: ['', null],
       dateCreated: ['', Validators.required],
       dateAccepted: ['', null],
       dateValid: ['', null],
@@ -228,10 +227,12 @@ export class RecursoComponent implements OnInit {
       uri: ['', null],
       issn: ['', null],
       isbn: ['', null],
+      year: ['', null],
+      spatial: ['', null],
       tilCodigo: ['', Validators.required],
       tirCodigo: ['', Validators.required],
-      arcCodigo: ['', Validators.required],
-      proCodigo: ['', Validators.required],
+      arcCodigo: ['', null],
+      proCodigo: ['', null],
       archivo: ['', Validators.required],
       visualizaciones: ['', null],
       descargas: ['', null],
@@ -280,18 +281,16 @@ export class RecursoComponent implements OnInit {
       codigo: [resourceSelected.codigo, null],
       title: [resourceSelected.title, Validators.required],
       alternative: [resourceSelected.alternative],
-      description: [resourceSelected.description],
-      abstract: [resourceSelected.alternative],
+      abstract: [resourceSelected.abstract, Validators.required],
       subject: [resourceSelected.subject, Validators.required],
       source: [resourceSelected.source],
       relation: [resourceSelected.relation],
-      creator: [resourceSelected.creator],
+      creator: [resourceSelected.creator, Validators.required],
       publisher: [resourceSelected.publisher],
       contributor: [resourceSelected.contributor],
       advice: [resourceSelected.advice],
       accessRights: [resourceSelected.accessRights],
       licence: [resourceSelected.licence],
-      dateAvailable: [resourceSelected.dateAvailable],
       dateCreated: [resourceSelected.dateCreated],
       dateAccepted: [resourceSelected.dateAccepted],
       dateValid: [resourceSelected.dateValid],
@@ -304,6 +303,8 @@ export class RecursoComponent implements OnInit {
       uri: [resourceSelected.uri],
       issn: [resourceSelected.issn],
       isbn: [resourceSelected.isbn],
+      year: [resourceSelected.year],
+      spatial: [resourceSelected.spatial],
       timCodigo: [resourceSelected.timCodigo],
       tilCodigo: [resourceSelected.tilCodigo],
       tirCodigo: [resourceSelected.tirCodigo],
@@ -420,11 +421,14 @@ export class RecursoComponent implements OnInit {
         if (this.metadata[0].sedeNombre !== '') {
           this.meta.updateTag({ name: 'DC.coverage', content: this.metadata[0].sedeNombre });
         }
+        if (this.metadata[0].spatial !== '') {
+          this.meta.updateTag({ name: 'DCTERMS.coverage.spatial', content: this.metadata[0].spatial });
+        }
         if (this.metadata[0].date !== null) {
           this.meta.updateTag({ name: 'DC.date', content: this.metadata[0].date });
         }
-        if (this.metadata[0].dateAvailable !== null) {
-          this.meta.updateTag({ name: 'DCTERMS.available', content: this.metadata[0].available });
+        if (this.metadata[0].year !== '') {
+          this.meta.updateTag({ name: 'DCTERMS.yewar', content: this.metadata[0].year });
         }
         if (this.metadata[0].dateCreated !== null) {
           this.meta.updateTag({ name: 'DCTERMS.created', content: this.metadata[0].dateCreated });
@@ -440,9 +444,6 @@ export class RecursoComponent implements OnInit {
         }
         if (this.metadata[0].dateIssued !== null) {
           this.meta.updateTag({ name: 'DCTERMS.issued', content: this.metadata[0].dateIssued });
-        }
-        if (this.metadata[0].description !== '') {
-          this.meta.updateTag({ name: 'DC.description', content: this.metadata[0].description });
         }
         if (this.metadata[0].abstract !== '') {
           this.meta.updateTag({ name: 'DCTERMS.abstract', content: this.metadata[0].abstract });

@@ -49,7 +49,6 @@ export class HomeComponent implements OnInit {
       titulo: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
       autor: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
       palabrasClaves: ['', [Validators.pattern('^[^<>]+$')]],
-      identificador: ['', [Validators.pattern('^[^<>]+$')]],
       tipoLenguaje: ['', null],
       tipoRecurso: ['', null],
       areaConocimiento: ['', null],
@@ -155,7 +154,6 @@ export class HomeComponent implements OnInit {
       CondicionCinco: this.formBusquedaAvanzada.value.cond5,
       SedeCodigo: this.formBusquedaAvanzada.value.sede,
       CondicionSeis: this.formBusquedaAvanzada.value.cond6,
-      Identificador: this.formBusquedaAvanzada.value.identificador
     };
   }
 

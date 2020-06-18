@@ -122,11 +122,14 @@ export class MetadataComponent implements OnInit {
         if (this.metadata[0].sedeNombre !== '') {
           this.meta.updateTag({ name: 'DC.coverage', content: this.metadata[0].sedeNombre });
         }
+        if (this.metadata[0].spatial !== '') {
+          this.meta.updateTag({ name: 'DCTERMS.coverage.spatial', content: this.metadata[0].spatial });
+        }
         if (this.metadata[0].date !== null) {
           this.meta.updateTag({ name: 'DC.date', content: this.metadata[0].date });
         }
-        if (this.metadata[0].dateAvailable !== null) {
-          this.meta.updateTag({ name: 'DCTERMS.available', content: this.metadata[0].available });
+        if (this.metadata[0].year !== '') {
+          this.meta.updateTag({ name: 'DCTERMS.year', content: this.metadata[0].year });
         }
         if (this.metadata[0].dateCreated !== null) {
           this.meta.updateTag({ name: 'DCTERMS.created', content: this.metadata[0].dateCreated });
@@ -142,9 +145,6 @@ export class MetadataComponent implements OnInit {
         }
         if (this.metadata[0].dateIssued !== null) {
           this.meta.updateTag({ name: 'DCTERMS.issued', content: this.metadata[0].dateIssued });
-        }
-        if (this.metadata[0].description !== '') {
-          this.meta.updateTag({ name: 'DC.description', content: this.metadata[0].description });
         }
         if (this.metadata[0].abstract !== '') {
           this.meta.updateTag({ name: 'DCTERMS.abstract', content: this.metadata[0].abstract });

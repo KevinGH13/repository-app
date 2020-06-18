@@ -1,9 +1,7 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3">
-            <select class="custom-select"></select>
-        </div>
-        <div class="col-sm-9">
+
+        <div class="col-sm-12">
             <div class="input-group caja-busqueda">
                 <input class="form-control mr-sm-2 margen" type="search" placeholder="" aria-label="Search" #searchTitle>
                 <span class="input-group-btn">
@@ -69,13 +67,17 @@
                                 <td class="label">dc.coverage</td>
                                 <td>{{ metadata.SedeNombre }}</td>
                             </tr>
+                            <tr *ngIf="metadata.spatial != ''">
+                                <td class="label">dc.coverage.spatial</td>
+                                <td>{{ metadata.spatial }}</td>
+                            </tr>
                             <tr *ngIf="metadata.date != null">
                                 <td class="label">dc.date</td>
                                 <td>{{ metadata.date }}</td>
                             </tr>
-                            <tr *ngIf="metadata.dateAvailable != null">
-                                <td class="label">dc.date.available</td>
-                                <td>{{ metadata.dateAvailable }}</td>
+                            <tr *ngIf="metadata.year != ''">
+                                <td class="label">dc.year</td>
+                                <td>{{ metadata.year }}</td>
                             </tr>
                             <tr *ngIf="metadata.dateCreated != null">
                                 <td class="label">dc.date.created</td>
@@ -96,10 +98,6 @@
                             <tr *ngIf="metadata.dateIssued != null">
                                 <td class="label">dc.date.issued</td>
                                 <td>{{ metadata.dateIssued }}</td>
-                            </tr>
-                            <tr *ngIf="metadata.description != ''">
-                                <td class="label">dc.description</td>
-                                <td>{{ metadata.description }}</td>
                             </tr>
                             <tr *ngIf="metadata.abstract != ''">
                                 <td class="label">dc.abstract</td>
@@ -169,7 +167,8 @@
                     </table>
                 </div>
                 <br>
-                <div>
+                <!--
+<div>
                     <div class="row">
                         <div class="col-sm-3 col-xs-3 col-md-3">
                             <div>
@@ -184,6 +183,8 @@
                         </div>
                     </div>
                 </div>
+                 -->
+
                 <br>
             </div>
         </div>
