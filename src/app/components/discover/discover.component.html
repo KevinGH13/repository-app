@@ -132,61 +132,89 @@
                 </div>
                 <div class="modal-body tamano-modal">
                     <form id="formResource" name="formResource" [formGroup]="formResource" (ngSubmit)="onSubmit()">
+                        <small id="requiredHelp" class="form-text text-muted">
+                            *Campos obligatorios.
+                        </small>
+                        <br>
                         <div class="col-sm-12">
                             <div class="form-group row">
-                                <label for="title">Título</label>
-                                <input type="text" class="form-control" id="txtTitle" placeholder="Título" maxlength="512" autocomplete="off" formControlName="title" [ngClass]="{'is-invalid':submitted && fo.title.errors }">
+                                <label for="title">Título*</label>
+                                <input type="text" class="form-control" id="txtTitle" placeholder="Título del recurso." maxlength="512" autocomplete="off" formControlName="title" [ngClass]="{'is-invalid':submitted && fo.title.errors }">
                                 <div *ngIf="submitted && fo.title.errors" class="invalid-feedback">
                                     <div *ngIf="fo.title.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                                    <div *ngIf="fo.title.errors.pattern"> {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group row">
                                 <label for="alternative">Título alternativo</label>
-                                <input type="text" class="form-control" id="txtAlternative" placeholder="Título" maxlength="512" autocomplete="off" formControlName="alternative" [ngClass]="{'is-invalid':submitted && fo.alternative.errors }">
+                                <input type="text" class="form-control" id="txtAlternative" placeholder="Título." maxlength="512" autocomplete="off" formControlName="alternative" [ngClass]="{'is-invalid':submitted && fo.alternative.errors }">
+                                <small id="alternativeHelp" class="form-text text-muted">
+                                    Ejemplo: título alterno, porción del título principal o título en segundo idioma.
+                                </small>
+                                <div *ngIf="submitted && fo.alternative.errors" class="invalid-feedback">
+                                    <div *ngIf="fo.alternative.errors.pattern">
+                                        {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group row">
-                                <label for="creator">Autor/a</label>
-                                <input type="text" class="form-control" id="txtCreator" placeholder="Autor/a" maxlength="100" autocomplete="off" formControlName="creator" [ngClass]="{'is-invalid':submitted && fo.creator.errors }">
+                                <label for="creator">Autor/a*</label>
+                                <input type="text" class="form-control" id="txtCreator" placeholder="Autor o autores del recurso. (Separados por coma)." maxlength="100" autocomplete="off" formControlName="creator" [ngClass]="{'is-invalid':submitted && fo.creator.errors }">
                                 <div *ngIf="submitted && fo.creator.errors" class="invalid-feedback">
                                     <div *ngIf="fo.creator.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                                    <div *ngIf="fo.creator.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group row">
                                 <label for="advice">Asesor/a</label>
-                                <input type="text" class="form-control" id="txtAdvice" placeholder="Asesor/a" maxlength="100" autocomplete="off" formControlName="advice" [ngClass]="{'is-invalid':submitted && fo.advice.errors }">
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group row">
-                                <label for="abstract">Descripción o resumen</label>
-                                <textarea class="form-control" id="txtAbstract" rows="6" maxlength="2000" placeholder="Resumen" autocomplete="off" formControlName="abstract" [ngClass]="{'is-invalid':submitted && fo.abstract.errors }"></textarea>
-                                <div *ngIf="submitted && fo.abstract.errors" class="invalid-feedback">
-                                    <div *ngIf="fo.abstract.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                                <input type="text" class="form-control" id="txtAdvice" placeholder="Asesor/a." maxlength="100" autocomplete="off" formControlName="advice" [ngClass]="{'is-invalid':submitted && fo.advice.errors }">
+                                <div *ngIf="submitted && fo.advice.errors" class="invalid-feedback">
+                                    <div *ngIf="fo.advice.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group row">
-                                <label for="subject">Palabras Clave</label>
-                                <textarea class="form-control" id="txtSubject" rows="2" maxlength="512" placeholder="Palabras clave (separadas por coma)" autocomplete="off" formControlName="subject" [ngClass]="{'is-invalid':submitted && fo.subject.errors }"></textarea>
+                                <label for="abstract">Descripción o resumen*</label>
+                                <textarea class="form-control" id="txtAbstract" rows="6" maxlength="2000" placeholder="Descripción o resumen del recurso." autocomplete="off" formControlName="abstract" [ngClass]="{'is-invalid':submitted && fo.abstract.errors }"></textarea>
+                                <div *ngIf="submitted && fo.abstract.errors" class="invalid-feedback">
+                                    <div *ngIf="fo.abstract.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                                    <div *ngIf="fo.abstract.errors.pattern">
+                                        {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group row">
+                                <label for="subject">Palabras Clave*</label>
+                                <textarea class="form-control" id="txtSubject" rows="2" maxlength="512" placeholder="Palabras clave. (Separadas por coma)." autocomplete="off" formControlName="subject" [ngClass]="{'is-invalid':submitted && fo.subject.errors }"></textarea>
                                 <div *ngIf="submitted && fo.subject.errors" class="invalid-feedback">
                                     <div *ngIf="fo.subject.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                                    <div *ngIf="fo.subject.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="publisher">Editor</label>
-                                <input type="text" class="form-control" id="txtPublisher" placeholder="Editor" maxlength="200" autocomplete="on" formControlName="publisher" [ngClass]="{'is-invalid':submitted && fo.publisher.errors }">
+                                <input type="text" class="form-control" id="txtPublisher" placeholder="Entidad responsable de la publicación del recurso." maxlength="200" autocomplete="on" formControlName="publisher" [ngClass]="{'is-invalid':submitted && fo.publisher.errors }">
+                                <div *ngIf="submitted && fo.publisher.errors" class="invalid-feedback">
+                                    <div *ngIf="fo.publisher.errors.pattern">
+                                        {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}</div>
+                                </div>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="sedeCodigo">Sede</label>
+                                <label for="sedeCodigo">Sede*</label>
                                 <select class="custom-select" formControlName="sedeCodigo" [ngClass]="{'is-invalid':submitted && fo.sedeCodigo.errors}">
                                     <option value="">Seleccione Sede</option>
                                     <option *ngFor="let sede of listSedes" [value]="sede.codigo">{{ sede.nombre }}
@@ -200,7 +228,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label for="department">Facultad</label>
+                                <label for="department">Facultad*</label>
                                 <select class="custom-select" formControlName="arcCodigo" [ngClass]="{'is-invalid':submitted && fo.arcCodigo.errors }">
                                     <option value="">Seleccione Facultad</option>
                                     <option *ngFor="let AreCon of listAreasConocimiento" [value]="AreCon.codigo">
@@ -211,7 +239,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="program">Programa</label>
+                                <label for="program">Programa*</label>
                                 <select class="custom-select" formControlName="proCodigo" [ngClass]="{'is-invalid':submitted && fo.proCodigo.errors }">
                                     <option value="">Seleccione Programa</option>
                                     <option *ngFor="let ProAca of listProgramasAcademicos" [value]="ProAca.codigo">
@@ -224,7 +252,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-4">
-                                <label for="dateCreated">Fecha de Elaboración</label>
+                                <label for="dateCreated">Fecha de Elaboración*</label>
                                 <input type="date" class="form-control" formControlName="dateCreated" [ngClass]="{'is-invalid':submitted && fo.dateCreated.errors }">
                                 <div *ngIf="submitted && fo.dateCreated.errors" class="invalid-feedback">
                                     <div *ngIf="fo.dateCreated.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}
@@ -233,22 +261,29 @@
                             </div>
                             <div class="form-group col-sm-4">
                                 <label for="year">Año</label>
-                                <input type="text" class="form-control" formControlName="year" maxlength="4" placeholder="Año" autocomplete="off" [ngClass]="{'is-invalid':submitted && fo.year.errors }">
+                                <input type="text" class="form-control" formControlName="year" maxlength="4" placeholder="Año de publicación." autocomplete="off" [ngClass]="{'is-invalid':submitted && fo.year.errors }">
                             </div>
                             <div class="form-group col-sm-4">
                                 <label for="spatial">Ciudad</label>
-                                <input type="text" class="form-control" formControlName="spatial" maxlength="100" placeholder="Ciudad" autocomplete="off" [ngClass]="{'is-invalid':submitted && fo.spatial.errors }">
+                                <input type="text" class="form-control" formControlName="spatial" maxlength="100" placeholder="Ciudad de publicación." autocomplete="off" [ngClass]="{'is-invalid':submitted && fo.spatial.errors }">
+                                <div *ngIf="submitted && fo.spatial.errors" class="invalid-feedback">
+                                    <div *ngIf="fo.spatial.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label for="extend">Extension/duracion</label>
-                                <input type="text" class="form-control" id="txtExtend" placeholder="Extension o duracion del recurso" maxlength="20" autocomplete="off" formControlName="extend" [ngClass]="{'is-invalid':submitted && fo.extend.errors }">
+                                <label for="extend">Extensión/Duración</label>
+                                <input type="text" class="form-control" id="txtExtend" placeholder="Extension o duración del recurso." maxlength="20" autocomplete="off" formControlName="extend" [ngClass]="{'is-invalid':submitted && fo.extend.errors }">
 
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="medium">Descripción física</label>
-                                <input type="text" class="form-control" id="txtMedium" placeholder="Descripción física del recurso" maxlength="20" autocomplete="off" formControlName="medium" [ngClass]="{'is-invalid':submitted && fo.medium.errors }">
+                                <input type="text" class="form-control" id="txtMedium" placeholder="Descripción física del recurso." maxlength="100" autocomplete="off" formControlName="medium" [ngClass]="{'is-invalid':submitted && fo.medium.errors }">
+                                <small id="requiredHelp" class="form-text text-muted">
+                                    Descripción o manifestación física del recurso.
+                                </small>
                             </div>
                         </div>
                         <div class="row">
@@ -264,7 +299,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-4">
-                                <label for="language">Lenguaje</label>
+                                <label for="language">Lenguaje*</label>
                                 <select class="custom-select" formControlName="tilCodigo" [ngClass]="{'is-invalid':submitted && fo.tilCodigo.errors }">
                                     <option value="">Seleccione Lenguaje</option>
                                     <option *ngFor="let Lang of listLenguajes" [value]="Lang.codigo">{{ Lang.nombre }}
@@ -276,36 +311,39 @@
                             </div>
                             <div class="form-group col-sm-4">
                                 <label for="identifier">Identificador</label>
-                                <input type="text" class="form-control" id="txtIdentifier" placeholder="Identificador" maxlength="100" autocomplete="off" formControlName="identifier" [ngClass]="{'is-invalid':submitted && fo.identifier.errors }">
+                                <input type="text" class="form-control" id="txtIdentifier" placeholder="Identificador del recurso." maxlength="100" autocomplete="off" formControlName="identifier" [ngClass]="{'is-invalid':submitted && fo.identifier.errors }">
+                                <small id="identifierHelp" class="form-text text-muted">
+                                    Ejemplo: signatura topográfica.
+                                </small>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="doi">DOI</label>
-                                <input type="text" class="form-control" id="txtDOI" placeholder="doi" maxlength="100" autocomplete="off" formControlName="doi" [ngClass]="{'is-invalid':submitted && fo.doi.errors }">
+                                <input type="text" class="form-control" id="txtDOI" placeholder="DOI" maxlength="100" autocomplete="off" formControlName="doi" [ngClass]="{'is-invalid':submitted && fo.doi.errors }">
 
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="uri">URI</label>
-                                <input type="text" class="form-control" id="txtURI" placeholder="uri" maxlength="100" autocomplete="off" formControlName="uri" [ngClass]="{'is-invalid':submitted && fo.uri.errors }">
+                                <input type="text" class="form-control" id="txtURI" placeholder="Identificador uniforme de recurso." maxlength="100" autocomplete="off" formControlName="uri" [ngClass]="{'is-invalid':submitted && fo.uri.errors }">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="issn">ISSN</label>
-                                <input type="text" class="form-control" id="txtISSN" placeholder="issn" maxlength="100" autocomplete="off" formControlName="issn" [ngClass]="{'is-invalid':submitted && fo.issn.errors }">
+                                <input type="text" class="form-control" id="txtISSN" placeholder="ISSN." maxlength="100" autocomplete="off" formControlName="issn" [ngClass]="{'is-invalid':submitted && fo.issn.errors }">
 
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="isbn">ISBN</label>
-                                <input type="text" class="form-control" id="txtISBN" placeholder="isbn" maxlength="100" autocomplete="off" formControlName="isbn" [ngClass]="{'is-invalid':submitted && fo.isbn.errors }">
+                                <input type="text" class="form-control" id="txtISBN" placeholder="ISBN." maxlength="100" autocomplete="off" formControlName="isbn" [ngClass]="{'is-invalid':submitted && fo.isbn.errors }">
 
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="licence">Licencia</label>
-                                <input type="text" class="form-control" id="txtLicence" placeholder="Licencia" autocomplete="off" maxlength="512" formControlName="licence" [ngClass]="{'is-invalid':submitted && fo.licence.errors }">
+                                <input type="text" class="form-control" id="txtLicence" placeholder="Licencia." autocomplete="off" maxlength="512" formControlName="licence" [ngClass]="{'is-invalid':submitted && fo.licence.errors }">
                             </div>
                             <div class="form-group col-sm-6">
                                 <label>Restringir Descarga</label>
@@ -327,30 +365,39 @@
                             <div class="col-sm-12">
                                 <div class="form-group row">
                                     <label for="contributor">Colaborador/a</label>
-                                    <input type="text" class="form-control" id="txtContributor" placeholder="Colaborador/a" maxlength="100" autocomplete="off" formControlName="contributor" [ngClass]="{'is-invalid':submitted && fo.contributor.errors }">
-
+                                    <input type="text" class="form-control" id="txtContributor" placeholder="Colaborador/a." maxlength="100" autocomplete="off" formControlName="contributor" [ngClass]="{'is-invalid':submitted && fo.contributor.errors }">
+                                    <div *ngIf="submitted && fo.contributor.errors" class="invalid-feedback">
+                                        <div *ngIf="fo.contributor.errors.pattern">
+                                            {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label for="source">Fuente</label>
-                                    <input type="text" class="form-control" placeholder="Fuente" id="txtSource" maxlength="200" autocomplete="off" formControlName="source" [ngClass]="{'is-invalid':submitted && fo.source.errors }">
-
+                                    <input type="text" class="form-control" placeholder="Fuente." id="txtSource" maxlength="200" autocomplete="off" formControlName="source" [ngClass]="{'is-invalid':submitted && fo.source.errors }">
+                                    <div *ngIf="submitted && fo.source.errors" class="invalid-feedback">
+                                        <div *ngIf="fo.source.errors.pattern">
+                                            {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}</div>
+                                    </div>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="relation">Relaciones</label>
-                                    <input type="text" class="form-control" placeholder="Relaciones" id="txtRelation" maxlength="200" autocomplete="off" formControlName="relation" [ngClass]="{'is-invalid':submitted && fo.relation.errors }">
-
+                                    <input type="text" class="form-control" placeholder="Relaciones." id="txtRelation" maxlength="200" autocomplete="off" formControlName="relation" [ngClass]="{'is-invalid':submitted && fo.relation.errors }">
+                                    <div *ngIf="submitted && fo.relation.errors" class="invalid-feedback">
+                                        <div *ngIf="fo.relation.errors.pattern">
+                                            {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-4">
-                                    <label for="dateAccepted">Fecha de aceptacion</label>
+                                    <label for="dateAccepted">Fecha de aceptación</label>
                                     <input type="date" class="form-control" formControlName="dateAccepted" [ngClass]="{'is-invalid':submitted && fo.dateAccepted.errors }">
 
                                 </div>
                                 <div class="form-group col-sm-4">
-                                    <label for="dateValid">Fecha de validacion</label>
+                                    <label for="dateValid">Fecha de validación</label>
                                     <input type="date" class="form-control" formControlName="dateValid" [ngClass]="{'is-invalid':submitted && fo.dateValid.errors }">
                                 </div>
                                 <div class="form-group col-sm-4">

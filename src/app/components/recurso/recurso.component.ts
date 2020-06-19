@@ -168,7 +168,7 @@ export class RecursoComponent implements OnInit {
   searchResourceById() {
     this.activatedRoute.params.subscribe(params => {
       if (params.id) {
-        this.listResources = this.listResources.filter(x => x.arcCodigo === params.id);
+        this.listResources = this.listResources.filter(x => (x.arcCodigo && x.tirCodigo) === params.id);
       }
     },
       error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
@@ -191,7 +191,6 @@ export class RecursoComponent implements OnInit {
       .subscribe(response => {
         if (response.status) {
           this.listResource = response.information;
-          console.log(this.listResource[0]);
         } else {
           this.util.manageResponseFalse(response);
         }
@@ -199,19 +198,20 @@ export class RecursoComponent implements OnInit {
         error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
+
   CreateFormValidation() {
     this.formResource = this.formBuilder.group({
       codigo: ['', null],
-      title: ['', Validators.required],
-      alternative: ['', null],
-      abstract: ['', Validators.required],
-      subject: ['', Validators.required],
-      source: ['', null],
-      relation: ['', null],
-      creator: ['', Validators.required],
-      publisher: ['', null],
-      contributor: ['', null],
-      advice: ['', null],
+      title: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
+      alternative: ['', [Validators.pattern('^[^<>]+$')]],
+      abstract: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
+      subject: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
+      source: ['', [Validators.pattern('^[^<>]+$')]],
+      relation: ['', [Validators.pattern('^[^<>]+$')]],
+      creator: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
+      publisher: ['', [Validators.pattern('^[^<>]+$')]],
+      contributor: ['', [Validators.pattern('^[^<>]+$')]],
+      advice: ['', [Validators.pattern('^[^<>]+$')]],
       accessRights: ['Derechos Patrimoniales', null],
       licence: ['', null],
       dateCreated: ['', Validators.required],
@@ -219,7 +219,6 @@ export class RecursoComponent implements OnInit {
       dateValid: ['', null],
       dateModified: ['', null],
       dateIssued: ['', null],
-      format: ['', null],
       extend: ['', null],
       medium: ['', null],
       identifier: ['', null],
@@ -227,17 +226,17 @@ export class RecursoComponent implements OnInit {
       uri: ['', null],
       issn: ['', null],
       isbn: ['', null],
-      year: ['', null],
-      spatial: ['', null],
       tilCodigo: ['', Validators.required],
+      proCodigo: ['', Validators.required],
       tirCodigo: ['', Validators.required],
-      arcCodigo: ['', null],
-      proCodigo: ['', null],
+      arcCodigo: ['', Validators.required],
       archivo: ['', Validators.required],
       visualizaciones: ['', null],
       descargas: ['', null],
       sedeCodigo: ['', Validators.required],
-      indDescargaRestringida: ['N', Validators.required]
+      indDescargaRestringida: ['N', Validators.required],
+      year: ['', null],
+      spatial: ['', [Validators.pattern('^[^<>]+$')]],
     });
   }
 
@@ -273,22 +272,21 @@ export class RecursoComponent implements OnInit {
   }
 
   onEdit(codigoRecurso: string) {
-    console.log('entra al edit');
     this.tituloModal = 'Editar Recurso';
     this.operacion = 'MOD';
     const resourceSelected = this.listResource[0];
     this.formResource = this.formBuilder.group({
       codigo: [resourceSelected.codigo, null],
-      title: [resourceSelected.title, Validators.required],
-      alternative: [resourceSelected.alternative],
+      title: [resourceSelected.title, [Validators.required, Validators.pattern('^[^<>]+$')]],
+      alternative: [resourceSelected.alternative, [Validators.pattern('^[^<>]+$')]],
       abstract: [resourceSelected.abstract, Validators.required],
-      subject: [resourceSelected.subject, Validators.required],
-      source: [resourceSelected.source],
-      relation: [resourceSelected.relation],
-      creator: [resourceSelected.creator, Validators.required],
-      publisher: [resourceSelected.publisher],
-      contributor: [resourceSelected.contributor],
-      advice: [resourceSelected.advice],
+      subject: [resourceSelected.subject, [Validators.required, Validators.pattern('^[^<>]+$')]],
+      source: [resourceSelected.source, [Validators.pattern('^[^<>]+$')]],
+      relation: [resourceSelected.relation, [Validators.pattern('^[^<>]+$')]],
+      creator: [resourceSelected.creator, [Validators.required, Validators.pattern('^[^<>]+$')]],
+      publisher: [resourceSelected.publisher, [Validators.pattern('^[^<>]+$')]],
+      contributor: [resourceSelected.contributor, [Validators.pattern('^[^<>]+$')]],
+      advice: [resourceSelected.advice, [Validators.pattern('^[^<>]+$')]],
       accessRights: [resourceSelected.accessRights],
       licence: [resourceSelected.licence],
       dateCreated: [resourceSelected.dateCreated],
@@ -305,11 +303,11 @@ export class RecursoComponent implements OnInit {
       isbn: [resourceSelected.isbn],
       year: [resourceSelected.year],
       spatial: [resourceSelected.spatial],
-      timCodigo: [resourceSelected.timCodigo],
-      tilCodigo: [resourceSelected.tilCodigo],
-      tirCodigo: [resourceSelected.tirCodigo],
-      arcCodigo: [resourceSelected.arcCodigo],
-      proCodigo: [resourceSelected.proCodigo],
+      timCodigo: [resourceSelected.timCodigo, Validators.required],
+      tilCodigo: [resourceSelected.tilCodigo, Validators.required],
+      tirCodigo: [resourceSelected.tirCodigo, Validators.required],
+      arcCodigo: [resourceSelected.arcCodigo, Validators.required],
+      proCodigo: [resourceSelected.proCodigo, Validators.required],
       archivo: [''],
       visualizaciones: [resourceSelected.visualizaciones, null],
       descargas: [resourceSelected.descargas, null],
@@ -396,7 +394,6 @@ export class RecursoComponent implements OnInit {
   }
 
   handleFileInput(file: FileList) {
-    console.log(file);
     this.fileToUpload = file.item(0);
     if (file.item(0)) {
       this.labelImport.nativeElement.innerHTML = file.item(0).name;

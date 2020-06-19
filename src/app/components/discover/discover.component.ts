@@ -196,16 +196,16 @@ export class DiscoverComponent implements OnInit {
   CreateFormValidation() {
     this.formResource = this.formBuilder.group({
       codigo: ['', null],
-      title: ['', Validators.required],
-      alternative: ['', null],
-      abstract: ['', Validators.required],
-      subject: ['', Validators.required],
-      source: ['', null],
-      relation: ['', null],
-      creator: ['', Validators.required],
-      publisher: ['', null],
-      contributor: ['', null],
-      advice: ['', null],
+      title: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
+      alternative: ['', [Validators.pattern('^[^<>]+$')]],
+      abstract: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
+      subject: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
+      source: ['', [Validators.pattern('^[^<>]+$')]],
+      relation: ['', [Validators.pattern('^[^<>]+$')]],
+      creator: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
+      publisher: ['', [Validators.pattern('^[^<>]+$')]],
+      contributor: ['', [Validators.pattern('^[^<>]+$')]],
+      advice: ['', [Validators.pattern('^[^<>]+$')]],
       accessRights: ['Derechos Patrimoniales', null],
       licence: ['', null],
       dateCreated: ['', Validators.required],
@@ -230,46 +230,7 @@ export class DiscoverComponent implements OnInit {
       sedeCodigo: ['', Validators.required],
       indDescargaRestringida: ['N', Validators.required],
       year: ['', null],
-      spatial: ['', null],
-      /*
-      codigo: ['', null],
-      title: ['', [Validators.required, Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      alternative: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      description: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
-      abstract: ['', [Validators.pattern('^[^<>]+$')]],
-      subject: ['', [Validators.required, Validators.pattern('^[^<>]+$')]],
-      source: ['', [Validators.pattern('^[^<>]+$')]],
-      relation: ['', [Validators.pattern('^[^<>]+$')]],
-      creator: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      publisher: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      contributor: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      advice: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      accessRights: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      licence: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      dateAvailable: ['', Validators.pattern('^[0-9]+$')],
-      dateCreated: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      dateAccepted: ['', Validators.pattern('^[0-9]+$')],
-      dateValid: ['', Validators.pattern('^[0-9]+$')],
-      dateModified: ['', Validators.pattern('^[0-9]+$')],
-      dateIssued: ['', Validators.pattern('^[0-9]+$')],
-      format: ['', [Validators.pattern('^[^<>]+$')]],
-      extend: ['', [Validators.pattern('^[^<>]+$')]],
-      medium: ['', [Validators.pattern('^[^<>]+$')]],
-      identifier: ['', Validators.pattern('^[^<>]+$')],
-      doi: ['', [Validators.pattern('^[^<>]+$')]],
-      uri: ['', [Validators.pattern('^[^<>]+$')]],
-      issn: ['', [Validators.pattern('^[^<>]+$')]],
-      isbn: ['', [Validators.pattern('^[^<>]+$')]],
-      timCodigo: ['', [Validators.required]],
-      tilCodigo: ['', [Validators.required]],
-      tirCodigo: ['', [Validators.required]],
-      arcCodigo: ['', [Validators.required]],
-      proCodigo: ['', null],
-      archivo: ['', [Validators.required]],
-      visualizaciones: ['', null],
-      descargas: ['', null],
-      sedeCodigo: ['', Validators.required],
-      indDescargaRestringida: ['N', Validators.required]*/
+      spatial: ['', [Validators.pattern('^[^<>]+$')]],
     });
     this.formBusquedaAvanzada = this.formBuilder.group({
       titulo: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
@@ -290,8 +251,6 @@ export class DiscoverComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.formResource.valid);
-    console.log(this.formResource);
     if (this.formResource.valid) {
       this.resourcesService.addEditResource(this.formResource.value, this.operacion, this.fileToUpload)
         .subscribe(response => {
@@ -303,8 +262,6 @@ export class DiscoverComponent implements OnInit {
           }
         },
           error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
-    } else {
-      console.log(this.formResource);
     }
   }
 
@@ -321,50 +278,6 @@ export class DiscoverComponent implements OnInit {
     this.tituloModal = 'Nuevo Recurso';
     this.submitted = false;
     this.CreateFormValidation();
-  }
-
-  onEdit(codigoRecurso: string) {
-    this.tituloModal = 'Editar Recurso';
-    this.operacion = 'MOD';
-    const resourceSelected = this.listResources.filter(x => x.codigo === codigoRecurso)[0];
-    this.formResource = this.formBuilder.group({
-      codigo: [resourceSelected.codigo, null],
-      title: [resourceSelected.title, [Validators.required, Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      alternative: [resourceSelected.alternative, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      description: [resourceSelected.description, [Validators.required, Validators.pattern('^[^<>]+$')]],
-      abstract: [resourceSelected.alternative, [Validators.pattern('^[^<>]+$')]],
-      subject: [resourceSelected.subject, [Validators.required, Validators.pattern('^[^<>]+$')]],
-      source: [resourceSelected.source, [Validators.pattern('^[^<>]+$')]],
-      relation: [resourceSelected.relation, [Validators.pattern('^[^<>]+$')]],
-      creator: [resourceSelected.creator, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      publisher: [resourceSelected.publisher, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      contributor: [resourceSelected.contributor, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      advice: [resourceSelected.advice, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      accessRights: [resourceSelected.accessRights, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      licence: [resourceSelected.licence, [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      dateAvailable: [resourceSelected.dateAvailable, Validators.pattern('^[0-9]+$')],
-      dateCreated: [resourceSelected.dateCreated, Validators.pattern('^[0-9]+$')],
-      dateAccepted: [resourceSelected.dateAccepted, Validators.pattern('^[0-9]+$')],
-      dateValid: [resourceSelected.dateValid, Validators.pattern('^[0-9]+$')],
-      dateModified: [resourceSelected.dateModified, Validators.pattern('^[0-9]+$')],
-      dateIssued: [resourceSelected.dateIssued, Validators.pattern('^[0-9]+$')],
-      extend: [resourceSelected.extend, [Validators.pattern('^[^<>]+$')]],
-      medium: [resourceSelected.medium, [Validators.pattern('^[^<>]+$')]],
-      identifier: [resourceSelected.identifier, [Validators.pattern('^[^<>]+$')]],
-      doi: [resourceSelected.doi, [Validators.pattern('^[^<>]+$')]],
-      uri: [resourceSelected.uri, [Validators.pattern('^[^<>]+$')]],
-      issn: [resourceSelected.issn, [Validators.pattern('^[^<>]+$')]],
-      isbn: [resourceSelected.isbn, [Validators.pattern('^[^<>]+$')]],
-      tilCodigo: [resourceSelected.tilCodigo, [Validators.required]],
-      tirCodigo: [resourceSelected.tirCodigo, [Validators.required]],
-      arcCodigo: [resourceSelected.arcCodigo, [Validators.required]],
-      proCodigo: [resourceSelected.proCodigo, [Validators.required]],
-      archivo: ['', [Validators.required]],
-      visualizaciones: [resourceSelected.visualizaciones, null],
-      descargas: [resourceSelected.descargas, null],
-      sedeCodigo: [resourceSelected.sedeCodigo, Validators.required],
-      indDescargaRestringida: [resourceSelected.indDescargaRestringida, Validators.required]
-    });
   }
 
   actionAfterPostSuccess(response: ResponseModel) {
@@ -444,7 +357,6 @@ export class DiscoverComponent implements OnInit {
   }
 
   handleFileInput(file: FileList) {
-    console.log(file);
     this.fileToUpload = file.item(0);
     if (file.item(0)) {
       this.labelImport.nativeElement.innerHTML = file.item(0).name;

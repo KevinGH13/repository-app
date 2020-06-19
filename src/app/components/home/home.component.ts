@@ -46,8 +46,8 @@ export class HomeComponent implements OnInit {
 
   CreateFormValidation() {
     this.formBusquedaAvanzada = this.formBuilder.group({
-      titulo: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      autor: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
+      titulo: ['', [Validators.pattern('^[^<>]+$')]],
+      autor: ['', [Validators.pattern('^[^<>]+$')]],
       palabrasClaves: ['', [Validators.pattern('^[^<>]+$')]],
       tipoLenguaje: ['', null],
       tipoRecurso: ['', null],
@@ -135,7 +135,7 @@ export class HomeComponent implements OnInit {
     if (this.formBusquedaAvanzada.valid) {
       const model = this.buildAdvancedSearchModel();
       localStorage.setItem('AdvancedSearch', JSON.stringify(model));
-      this.route.navigate(['/discover', { id: '', search: 'true' }]);
+      this.route.navigate(['/resources', { id: '', search: 'true' }]);
       this.btnCloseModal.nativeElement.click();
     }
   }

@@ -16,19 +16,18 @@
     <br>
     <div class="row">
         <div class="col-xs-3 col-sm-3 col-md-3">
-            <hr>
             <div class="list-group">
                 <button type="button" class="list-group-item headerMenu">
                     Facultades
                 </button>
-                <a href="#" class="list-group-item list-group-item-action" *ngFor="let areCon of listAreasConocimiento">{{ areCon.nombre }}</a>
+                <a class="list-group-item list-group-item-action" [routerLink]="['/discover', { id: areCon.codigo, search:false}]" *ngFor="let areCon of listAreasConocimiento">{{ areCon.nombre }}</a>
             </div>
             <div class="dropdown-divider"></div>
             <div class="list-group">
                 <button type="button" class="list-group-item headerMenu">
                     Tipos de recurso
                 </button>
-                <a href="#" class="list-group-item list-group-item-action" *ngFor="let tir of listTipoRecursos">{{ tir.nombre }}</a>
+                <a class="list-group-item list-group-item-action" [routerLink]="['/discover', { id: tir.codigo, search:false}]" *ngFor="let tir of listTipoRecursos">{{ tir.nombre }}</a>
             </div>
         </div>
         <div class="col-xs-9 col-sm-9 col-md-9">

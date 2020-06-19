@@ -47,7 +47,7 @@
                         <div class="col-md-10 mb-3">
                             <input type="text" formControlName="titulo" placeholder="Titulo" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': submitted && fo.titulo.errors }">
                             <div *ngIf="submitted && fo.titulo.errors" class="invalid-feedback">
-                                <div *ngIf="fo.titulo.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }}
+                                <div *ngIf="fo.titulo.errors.pattern"> {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                         <div class="col-md-10 mb-3">
                             <input type="text" formControlName="autor" placeholder="Autor" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': submitted && fo.autor.errors }">
                             <div *ngIf="submitted && fo.autor.errors" class="invalid-feedback">
-                                <div *ngIf="fo.autor.errors.pattern"> {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }}
+                                <div *ngIf="fo.autor.errors.pattern"> {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
                                 </div>
                             </div>
                         </div>

@@ -8,7 +8,7 @@ export class Util {
 
     constructor() { }
 
-    //public baseUrl = 'http://localhost:9000/RepositorioPCJIC';
+    // public baseUrl = 'http://localhost:9000/RepositorioPCJIC';
     public baseUrl = 'https://webapirdpcjic.azurewebsites.net/RepositorioPCJIC';
     public MENSAJE_CAMPO_OBLIGATORIO = 'Campo Obligatorio';
     public MENSAJE_CAMPO_CARACTERES_INVALIDOS = 'No se permiten los caracteres: < , >';
