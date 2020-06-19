@@ -132,7 +132,9 @@ export class DiscoverComponent implements OnInit {
         error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
-  get fo() { return this.formResource.controls; }
+  get fo() {
+    return this.formResource.controls;
+  }
 
   validateOrigin(): any {
     this.activatedRoute.params.subscribe(params => {
@@ -231,21 +233,6 @@ export class DiscoverComponent implements OnInit {
       indDescargaRestringida: ['N', Validators.required],
       year: ['', null],
       spatial: ['', [Validators.pattern('^[^<>]+$')]],
-    });
-    this.formBusquedaAvanzada = this.formBuilder.group({
-      titulo: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      autor: ['', [Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]],
-      palabrasClaves: ['', [Validators.pattern('^[^<>]+$')]],
-      tipoLenguaje: ['', null],
-      tipoRecurso: ['', null],
-      areaConocimiento: ['', null],
-      sede: ['', null],
-      cond1: ['A', null],
-      cond2: ['A', null],
-      cond3: ['A', null],
-      cond4: ['A', null],
-      cond5: ['A', null],
-      cond6: ['A', null]
     });
   }
 

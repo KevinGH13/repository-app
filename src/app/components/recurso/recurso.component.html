@@ -264,7 +264,7 @@
                         <div class="col-sm-12">
                             <div class="form-group row">
                                 <label for="creator">Autor/a*</label>
-                                <input type="text" class="form-control" id="txtCreator" placeholder="Autor o autores del recurso. (Separados por coma)." maxlength="100" autocomplete="off" formControlName="creator" [ngClass]="{'is-invalid':submitted && fo.creator.errors }">
+                                <input type="text" class="form-control" id="txtCreator" placeholder="Autor o autores del recurso. (Separados por coma)." maxlength="1000" autocomplete="off" formControlName="creator" [ngClass]="{'is-invalid':submitted && fo.creator.errors }">
                                 <div *ngIf="submitted && fo.creator.errors" class="invalid-feedback">
                                     <div *ngIf="fo.creator.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
                                     <div *ngIf="fo.creator.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
@@ -275,7 +275,7 @@
                         <div class="col-sm-12">
                             <div class="form-group row">
                                 <label for="advice">Asesor/a</label>
-                                <input type="text" class="form-control" id="txtAdvice" placeholder="Asesor/a." maxlength="100" autocomplete="off" formControlName="advice" [ngClass]="{'is-invalid':submitted && fo.advice.errors }">
+                                <input type="text" class="form-control" id="txtAdvice" placeholder="Asesor/a." maxlength="1000" autocomplete="off" formControlName="advice" [ngClass]="{'is-invalid':submitted && fo.advice.errors }">
                                 <div *ngIf="submitted && fo.advice.errors" class="invalid-feedback">
                                     <div *ngIf="fo.advice.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
                                     </div>
@@ -307,7 +307,7 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="publisher">Editor</label>
-                                <input type="text" class="form-control" id="txtPublisher" placeholder="Entidad responsable de la publicación del recurso." maxlength="200" autocomplete="on" formControlName="publisher" [ngClass]="{'is-invalid':submitted && fo.publisher.errors }">
+                                <input type="text" class="form-control" id="txtPublisher" placeholder="Entidad responsable de la publicación del recurso." maxlength="1000" autocomplete="on" formControlName="publisher" [ngClass]="{'is-invalid':submitted && fo.publisher.errors }">
                                 <div *ngIf="submitted && fo.publisher.errors" class="invalid-feedback">
                                     <div *ngIf="fo.publisher.errors.pattern">
                                         {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}</div>
@@ -465,7 +465,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group row">
                                     <label for="contributor">Colaborador/a</label>
-                                    <input type="text" class="form-control" id="txtContributor" placeholder="Colaborador/a." maxlength="100" autocomplete="off" formControlName="contributor" [ngClass]="{'is-invalid':submitted && fo.contributor.errors }">
+                                    <input type="text" class="form-control" id="txtContributor" placeholder="Colaborador/a." maxlength="1000" autocomplete="off" formControlName="contributor" [ngClass]="{'is-invalid':submitted && fo.contributor.errors }">
                                     <div *ngIf="submitted && fo.contributor.errors" class="invalid-feedback">
                                         <div *ngIf="fo.contributor.errors.pattern">
                                             {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}</div>
