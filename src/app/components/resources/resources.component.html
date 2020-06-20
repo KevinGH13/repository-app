@@ -24,8 +24,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let resource of listResources | paginate: { itemsPerPage: 6, currentPage: pageNumber, totalItems: total } ">
-                    <td>{{resource.titulo}}</td>
-                    <td>{{resource.autor}}</td>
+                    <td>{{resource.title}}</td>
+                    <td>{{resource.creator}}</td>
                     <td>{{resource.arcNombre}}</td>
                     <td>{{resource.tirNombre}}</td>
                     <td>{{resource.timNombre}}</td>
