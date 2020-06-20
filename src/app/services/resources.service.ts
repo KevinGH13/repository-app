@@ -151,6 +151,14 @@ export class ResourcesService {
         return this.httpClient.post<ResponseModel>(this.util.baseUrl + '/Recursos/SearchByTitle', {}, { params: httParams });
     }
 
+    getResourcesByIdAndTitle(id: string, title: string): Observable<ResponseModel> {
+        const httParams = new HttpParams()
+            .append('id', id)
+            .append('title', title);
+
+        return this.httpClient.post<ResponseModel>(this.util.baseUrl + '/Recursos/GetResourceByIdAndTitle', {}, { params: httParams });
+    }
+
     getResourcesByCod(codigo: string): Observable<ResponseModel> {
         const httParams = new HttpParams()
             .append('codigo', codigo);

@@ -4,7 +4,7 @@
         <h5 class="tipo-fuente-titulo">{{ universityName }}</h5>
         <br>
         <div class="input-group caja-busqueda">
-            <input class="form-control mr-sm-2 margen" type="search" placeholder="Búsquedas" aria-label="Search" #searchTitle>
+            <input class="form-control mr-sm-2 margen" type="search" placeholder="Búsquedas" aria-label="Search" #searchTitle (keyup.enter)="onSearchByTitle($event)">
             <span class="input-group-btn">
                 <button type="button" class="btn btn-success" aria-label="Profile" (click)="onSearchByTitle($event)">
                     <i class="fa fa-search"></i>

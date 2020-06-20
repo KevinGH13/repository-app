@@ -130,7 +130,8 @@ export class RecursoComponent implements OnInit {
   validateOrigin(): any {
     this.activatedRoute.params.subscribe(params => {
       if (params.search === 'true') {
-        this.getAdvancedSearch();
+        // this.getAdvancedSearch();
+        this.getResourcesByIdAndTitle(params.id, params.title);
       } else if (params.title) {
         this.getResourcesByTitle(params.title);
       } else {
@@ -198,6 +199,18 @@ export class RecursoComponent implements OnInit {
         error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
+  getResourcesByIdAndTitle(id: string, title: string) {
+    this.resourcesService.getResourcesByIdAndTitle(id, title)
+      .subscribe(response => {
+        if (response.status) {
+          this.listResources = response.information;
+        } else {
+          this.util.manageResponseFalse(response);
+          console.log(this.util.manageResponseFalse(response));
+        }
+      },
+        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+  }
 
   CreateFormValidation() {
     this.formResource = this.formBuilder.group({
@@ -491,6 +504,18 @@ export class RecursoComponent implements OnInit {
     const titleValue = this.txtSearchTitle.nativeElement.value;
     // localStorage.setItem('SearchTitle', titleValue);
     this.router.navigate(['/discover', { title: titleValue }]);
+  }
+
+  onSearchById(event: any, id: string) {
+    const titleValue = this.txtSearchTitle.nativeElement.value;
+    const idValue = id;
+    // localStorage.setItem('SearchTitle', titleValue);
+    if (titleValue === '') {
+      this.router.navigate(['/discover', { title: titleValue, id: idValue, search: false }]);
+
+    } else {
+      this.router.navigate(['/discover', { title: titleValue, id: idValue, search: true }]);
+    }
   }
 
 }

@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'metadata', component: MetadataComponent },
   { path: 'metadata/:id/', component: MetadataComponent },
   { path: 'discover', component: DiscoverComponent },
-  { path: 'discover/:id/:search/:title', component: DiscoverComponent },
+  { path: 'discover/:id/:search/:title/:fil', component: DiscoverComponent },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   { path: 'tipos-documentos', component: TipoDocumentosComponent, canActivate: [AuthGuardService] },

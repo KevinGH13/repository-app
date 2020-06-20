@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, AfterContentInit } from '@angular/core';
 import { ResourcesService } from '../../services/resources.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -39,6 +39,7 @@ export class DiscoverComponent implements OnInit {
   @ViewChild('btnCloseModal') btnCloseModal: ElementRef;
   @ViewChild('labelImport') labelImport: ElementRef;
   @ViewChild('searchTitle') txtSearchTitle: ElementRef;
+  @ViewChild('searchId') searchId: ElementRef;
 
   constructor(private resourcesService: ResourcesService, private activatedRoute: ActivatedRoute,
     public loginService: LoginService, private router: Router, private sedesService: SedesService) {
@@ -136,10 +137,24 @@ export class DiscoverComponent implements OnInit {
     return this.formResource.controls;
   }
 
+  // tslint:disable-next-line: use-life-cycle-interface
+  ngAfterContentInit() {
+    this.activatedRoute.params.subscribe(params => {
+      if (params) {
+        this.txtSearchTitle.nativeElement.value = '';
+      }
+      if (params.title !== undefined) {
+        this.txtSearchTitle.nativeElement.value = params.title;
+      }
+    });
+  }
+
   validateOrigin(): any {
     this.activatedRoute.params.subscribe(params => {
       if (params.search === 'true') {
         this.getAdvancedSearch();
+      } else if (params.fil === 'true') {
+        this.getResourcesByIdAndTitle(params.id, params.title);
       } else if (params.title) {
         this.getResourcesByTitle(params.title);
       } else {
@@ -177,7 +192,7 @@ export class DiscoverComponent implements OnInit {
   searchResourceById() {
     this.activatedRoute.params.subscribe(params => {
       if (params.id) {
-        this.listResources = this.listResources.filter(x => (x.arcCodigo && x.tirCodigo) === params.id);
+        this.listResources = this.listResources.filter(x => x.arcCodigo === params.id);
       }
     },
       error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
@@ -193,6 +208,29 @@ export class DiscoverComponent implements OnInit {
         }
       },
         error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+  }
+
+  getResourcesByIdAndTitle(id: string, title: string) {
+    this.resourcesService.getResourcesByIdAndTitle(id, title)
+      .subscribe(response => {
+        if (response.status) {
+          this.listResources = response.information;
+        } else {
+          this.util.manageResponseFalse(response);
+        }
+      },
+        error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+  }
+
+  onSearchById(event: any, id: string) {
+    const titleValue = this.txtSearchTitle.nativeElement.value;
+    const idValue = id;
+    if (titleValue === '') {
+      this.router.navigate(['/discover', { title: titleValue, id: idValue, fil: false }]);
+
+    } else {
+      this.router.navigate(['/discover', { title: titleValue, id: idValue, fil: true }]);
+    }
   }
 
   CreateFormValidation() {
@@ -354,7 +392,7 @@ export class DiscoverComponent implements OnInit {
 
   onSearchByTitle(event: any) {
     const titleValue = this.txtSearchTitle.nativeElement.value;
-    // localStorage.setItem('SearchTitle', titleValue);
+    localStorage.setItem('SearchTitle', titleValue);
     this.router.navigate(['/discover', { title: titleValue }]);
   }
 

@@ -6,7 +6,7 @@
 
             <div class="col-sm-12">
                 <div class="input-group caja-busqueda">
-                    <input class="form-control mr-sm-2 margen" type="search" placeholder="" aria-label="Search" #searchTitle>
+                    <input class="form-control mr-sm-2 margen" type="search" placeholder="Búsquedas" aria-label="Search" #searchTitle (keyup.enter)="onSearchByTitle($event)" [value]="">
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-success" aria-label="Profile"
                             (click)="onSearchByTitle($event)">
@@ -48,14 +48,14 @@
                     <button type="button" class="list-group-item headerMenu">
                         Facultades
                     </button>
-                    <a class="list-group-item list-group-item-action" [routerLink]="['/discover', { id: areCon.codigo, search:false}]" *ngFor="let areCon of listAreasConocimiento">{{ areCon.nombre }}</a>
+                    <a class="list-group-item list-group-item-action" (click)="onSearchById($event, areCon.codigo)" *ngFor="let areCon of listAreasConocimiento" #searchId> {{ areCon.nombre }}</a>
                 </div>
                 <div class="dropdown-divider"></div>
                 <div class="list-group">
                     <button type="button" class="list-group-item headerMenu">
                         Tipos de recurso
                     </button>
-                    <a class="list-group-item list-group-item-action" [routerLink]="['/discover', { id: tir.codigo, search:false}]" *ngFor="let tir of listTipoRecursos">{{ tir.nombre }}</a>
+                    <a class="list-group-item list-group-item-action" (click)="onSearchById($event, tir.codigo)" *ngFor="let tir of listTipoRecursos" #searchId>{{ tir.nombre }}</a>
                 </div>
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9">
@@ -153,6 +153,9 @@
                                     <div *ngIf="fo.creator.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
                                     </div>
                                 </div>
+                                <small id="identifierHelp" class="form-text text-muted">
+                                    Separados por coma.
+                                </small>
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -271,7 +274,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-4">
-                                <label for="tirCodigo">Tipo de recurso</label>
+                                <label for="tirCodigo">Tipo de recurso*</label>
                                 <select class="custom-select" formControlName="tirCodigo" [ngClass]="{'is-invalid':submitted && fo.tirCodigo.errors }">
                                     <option value="">Seleccione Tipo de recurso</option>
                                     <option *ngFor="let TiRec of listTipoRecursos" [value]="TiRec.codigo">
@@ -313,14 +316,12 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label for="issn">ISSN</label>
-                                <input type="text" class="form-control" id="txtISSN" placeholder="ISSN." maxlength="100" autocomplete="off" formControlName="issn" [ngClass]="{'is-invalid':submitted && fo.issn.errors }">
-
-                            </div>
-                            <div class="form-group col-sm-6">
                                 <label for="isbn">ISBN</label>
                                 <input type="text" class="form-control" id="txtISBN" placeholder="ISBN." maxlength="100" autocomplete="off" formControlName="isbn" [ngClass]="{'is-invalid':submitted && fo.isbn.errors }">
-
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="issn">ISSN</label>
+                                <input type="text" class="form-control" id="txtISSN" placeholder="ISSN." maxlength="100" autocomplete="off" formControlName="issn" [ngClass]="{'is-invalid':submitted && fo.issn.errors }">
                             </div>
                         </div>
                         <div class="row">
@@ -353,6 +354,9 @@
                                         <div *ngIf="fo.contributor.errors.pattern">
                                             {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}</div>
                                     </div>
+                                    <small id="identifierHelp" class="form-text text-muted">
+                                        Separados por coma.
+                                    </small>
                                 </div>
                             </div>
                             <div class="row">
