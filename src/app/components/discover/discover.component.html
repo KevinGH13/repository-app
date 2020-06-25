@@ -24,10 +24,76 @@
                     <h3>Búsqueda Avanzada</h3>
                     <hr>
                     <div class="card card-body">
-
+                        <form id="formBusquedaAvanzada" [formGroup]="formBusquedaAvanzada" (ngSubmit)="onSubmitAS()">
+                            <div class="form-row">
+                                <div class="col-sm-3">
+                                    <input type="text" formControlName="titulo" placeholder="Titulo" class="form-control" maxlength="100" #searchTitleSA>
+                                </div>
+                                <div class="col-sm-1">
+                                    <select class="custom-select" formControlName="cond1">
+                                        <option value="A">Y</option>
+                                        <option value="O">O</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" formControlName="autor" placeholder="Autor" class="form-control" maxlength="100">
+                                </div>
+                                <div class="col-sm-1">
+                                    <select class="custom-select" formControlName="cond2">
+                                        <option value="A">Y</option>
+                                        <option value="O">O</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" formControlName="keywords" placeholder="Palabras Claves" class="form-control" maxlength="100">
+                                </div>
+                                <div class="col-sm-1">
+                                    <select class="custom-select" formControlName="cond3">
+                                        <option value="A">Y</option>
+                                        <option value="O">O</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-row">
+                                <div class="col-sm-3">
+                                    <select class="custom-select" id="ddlTipoRecurso" formControlName="tipoRecurso">
+                                        <option value="">Seleccione un Tipo de Recurso</option>
+                                        <option *ngFor="let tipoRe of listTipoRecursos" [value]="tipoRe.codigo">
+                                            {{ tipoRe.nombre }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-1">
+                                    <select class="custom-select" formControlName="cond4">
+                                        <option value="A">Y</option>
+                                        <option value="O">O</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select class="custom-select" id="ddlAreaConocimiento" formControlName="areaConocimiento">
+                                        <option value="">Seleccione una Facultad</option>
+                                        <option *ngFor="let areaCo of listAreasConocimiento" [value]="areaCo.codigo">
+                                            {{ areaCo.nombre }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-1">
+                                    <select class="custom-select" formControlName="cond5">
+                                        <option value="A">Y</option>
+                                        <option value="O">O</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select class="custom-select" id="ddlSede" formControlName="sede">
+                                        <option value="">Seleccione una Sede</option>
+                                        <option *ngFor="let sede of listSedes" [value]="sede.codigo">{{ sede.nombre }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" (click)="onCancel()" data-dismiss="modal" #btnCloseModal>Cancelar</button>
                         <button type="submit" form="formBusquedaAvanzada" class="btn btn-success">Filtrar</button>
                     </div>
                 </div>

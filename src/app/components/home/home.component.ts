@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   submitted = false;
   @ViewChild('btnCloseModal') btnCloseModal: ElementRef;
   @ViewChild('searchTitle') txtSearchTitle: ElementRef;
+  @ViewChild('searchTitleSA') txtSearchTitleAS: ElementRef;
 
   constructor(private falcultiesService: FacultiesService, private tipoRecursoService: TiposDocumentosService,
     private sanitizer: DomSanitizer, private resourceService: ResourcesService, private route: Router) {
@@ -46,9 +47,9 @@ export class HomeComponent implements OnInit {
 
   CreateFormValidation() {
     this.formBusquedaAvanzada = this.formBuilder.group({
-      titulo: ['', [Validators.pattern('^[^<>]+$')]],
-      autor: ['', [Validators.pattern('^[^<>]+$')]],
-      palabrasClaves: ['', [Validators.pattern('^[^<>]+$')]],
+      title: ['', [Validators.pattern('^[^<>]+$')]],
+      creator: ['', [Validators.pattern('^[^<>]+$')]],
+      subject: ['', [Validators.pattern('^[^<>]+$')]],
       tipoLenguaje: ['', null],
       tipoRecurso: ['', null],
       areaConocimiento: ['', null],
@@ -132,28 +133,28 @@ export class HomeComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    const titleValue = this.txtSearchTitleAS.nativeElement.value;
     if (this.formBusquedaAvanzada.valid) {
       const model = this.buildAdvancedSearchModel();
       localStorage.setItem('AdvancedSearch', JSON.stringify(model));
-      this.route.navigate(['/resources', { id: '', search: 'true' }]);
+      this.route.navigate(['/discover', { title: titleValue, search: 'true' }]);
       this.btnCloseModal.nativeElement.click();
     }
   }
 
   buildAdvancedSearchModel() {
     return {
-      Titulo: this.formBusquedaAvanzada.value.titulo,
+      Title: this.formBusquedaAvanzada.value.title,
       CondicionUno: this.formBusquedaAvanzada.value.cond1,
-      Autor: this.formBusquedaAvanzada.value.autor,
+      Creator: this.formBusquedaAvanzada.value.creator,
       CondicionDos: this.formBusquedaAvanzada.value.cond2,
-      PalabrasClave: this.formBusquedaAvanzada.value.palabrasClaves,
+      Subject: this.formBusquedaAvanzada.value.subject,
       CondicionTres: this.formBusquedaAvanzada.value.cond3,
       TirCodigo: this.formBusquedaAvanzada.value.tipoRecurso,
       CondicionCuatro: this.formBusquedaAvanzada.value.cond4,
       ArcCodigo: this.formBusquedaAvanzada.value.areaConocimiento,
       CondicionCinco: this.formBusquedaAvanzada.value.cond5,
       SedeCodigo: this.formBusquedaAvanzada.value.sede,
-      CondicionSeis: this.formBusquedaAvanzada.value.cond6,
     };
   }
 

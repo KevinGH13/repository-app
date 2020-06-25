@@ -40,6 +40,7 @@ export class DiscoverComponent implements OnInit {
   @ViewChild('labelImport') labelImport: ElementRef;
   @ViewChild('searchTitle') txtSearchTitle: ElementRef;
   @ViewChild('searchId') searchId: ElementRef;
+  @ViewChild('searchTitleSA') txtSearchTitleAS: ElementRef;
 
   constructor(private resourcesService: ResourcesService, private activatedRoute: ActivatedRoute,
     public loginService: LoginService, private router: Router, private sedesService: SedesService) {
@@ -54,6 +55,7 @@ export class DiscoverComponent implements OnInit {
 
   ngOnInit() {
     this.CreateFormValidation();
+    this.CreateFormValidationAS();
     this.getAreasConocimiento();
     this.getTiposRecursos();
     this.getTiposLenguaje();
@@ -274,6 +276,24 @@ export class DiscoverComponent implements OnInit {
     });
   }
 
+  CreateFormValidationAS() {
+    this.formBusquedaAvanzada = this.formBuilder.group({
+      titulo: ['', [Validators.pattern('^[^<>]+$')]],
+      autor: ['', [Validators.pattern('^[^<>]+$')]],
+      keywords: ['', [Validators.pattern('^[^<>]+$')]],
+      tipoLenguaje: ['', null],
+      tipoRecurso: ['', null],
+      areaConocimiento: ['', null],
+      sede: ['', null],
+      cond1: ['A', null],
+      cond2: ['A', null],
+      cond3: ['A', null],
+      cond4: ['A', null],
+      cond5: ['A', null],
+      cond6: ['A', null]
+    });
+  }
+
   onSubmit() {
     this.submitted = true;
     if (this.formResource.valid) {
@@ -398,19 +418,29 @@ export class DiscoverComponent implements OnInit {
 
   buildAdvancedSearchModel() {
     return {
-      Titulo: this.formBusquedaAvanzada.value.titulo,
+      Title: this.formBusquedaAvanzada.value.titulo,
       CondicionUno: this.formBusquedaAvanzada.value.cond1,
-      Autor: this.formBusquedaAvanzada.value.autor,
+      Creator: this.formBusquedaAvanzada.value.autor,
       CondicionDos: this.formBusquedaAvanzada.value.cond2,
-      PalabrasClave: this.formBusquedaAvanzada.value.palabrasClaves,
+      Subject: this.formBusquedaAvanzada.value.keywords,
       CondicionTres: this.formBusquedaAvanzada.value.cond3,
       TirCodigo: this.formBusquedaAvanzada.value.tipoRecurso,
       CondicionCuatro: this.formBusquedaAvanzada.value.cond4,
       ArcCodigo: this.formBusquedaAvanzada.value.areaConocimiento,
       CondicionCinco: this.formBusquedaAvanzada.value.cond5,
       SedeCodigo: this.formBusquedaAvanzada.value.sede,
-      CondicionSeis: this.formBusquedaAvanzada.value.cond6,
     };
+  }
+
+  onSubmitAS() {
+    this.submitted = true;
+    const titleValue = this.txtSearchTitleAS.nativeElement.value;
+    if (this.formBusquedaAvanzada.valid) {
+      const model = this.buildAdvancedSearchModel();
+      localStorage.setItem('AdvancedSearch', JSON.stringify(model));
+      this.router.navigate(['/discover', { title: titleValue, search: 'true' }]);
+      this.btnCloseModal.nativeElement.click();
+    }
   }
 
 }
