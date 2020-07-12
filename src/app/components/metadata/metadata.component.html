@@ -74,10 +74,6 @@
                                 <td class="label">dc.date</td>
                                 <td>{{ metadata.date }}</td>
                             </tr>
-                            <tr *ngIf="metadata.year != ''">
-                                <td class="label">dc.year</td>
-                                <td>{{ metadata.year }}</td>
-                            </tr>
                             <tr *ngIf="metadata.dateCreated != null">
                                 <td class="label">dc.date.created</td>
                                 <td>{{ metadata.dateCreated }}</td>
@@ -98,16 +94,16 @@
                                 <td class="label">dc.date.issued</td>
                                 <td>{{ metadata.dateIssued }}</td>
                             </tr>
+                            <tr *ngIf="metadata.year != ''">
+                                <td class="label">dc.date.issued</td>
+                                <td>{{ metadata.year }}</td>
+                            </tr>
                             <tr *ngIf="metadata.abstract != ''">
                                 <td class="label">dc.abstract</td>
                                 <td>{{ metadata.abstract }}</td>
                             </tr>
-                            <tr *ngIf="metadata.extend != ''">
-                                <td class="label">dc.format.extend</td>
-                                <td>{{ metadata.extend }}</td>
-                            </tr>
                             <tr *ngIf="metadata.medium != ''">
-                                <td class="label">dc.format.medium</td>
+                                <td class="label">dc.format</td>
                                 <td>{{ metadata.medium }}</td>
                             </tr>
                             <tr *ngIf="metadata.timCodigo != ''">

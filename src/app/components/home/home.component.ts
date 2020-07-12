@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   aplicationName: string;
   universityName: string;
   listFaculties: any[] = [];
-  listFacultiesWithIcon: any[] = [];
+  listColletionsWithIcon: any[] = [];
   listTipoRecursos: any[] = [];
   listSedes: any[] = [];
   util: Util = new Util();
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private falcultiesService: FacultiesService, private tipoRecursoService: TiposDocumentosService,
     private sanitizer: DomSanitizer, private resourceService: ResourcesService, private route: Router) {
-    this.aplicationName = 'REPOSITORIO DIGITAL';
+    this.aplicationName = 'REPOSITORIO INSTITUCIONAL';
     this.universityName = 'POLITÉCNICO COLOMBIANO JAIME ISAZA CADAVID';
   }
 
@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
     this.formBusquedaAvanzada = this.formBuilder.group({
       title: ['', [Validators.pattern('^[^<>]+$')]],
       creator: ['', [Validators.pattern('^[^<>]+$')]],
+      advice: ['', [Validators.pattern('^[^<>]+$')]],
       subject: ['', [Validators.pattern('^[^<>]+$')]],
       tipoLenguaje: ['', null],
       tipoRecurso: ['', null],
@@ -97,37 +98,32 @@ export class HomeComponent implements OnInit {
   }
 
   selectImagesHomePage(): any {
-    this.listFacultiesWithIcon = [
+    this.listColletionsWithIcon = [
       {
-        codigo: 'B8F85C967F1C4D2BAC95E5C3DBD72873',
-        nombre: 'Ingenierías',
-        rutaIcono: '../../assets/images/ingenierias-fondo.png'
+        codigo: '2567A065D99648C88D8BE14B73012ABB',
+        nombre: 'Docencia',
+        rutaIcono: '../../assets/images/docencia.png'
       },
       {
-        codigo: 'E235CA58AFFB4732A0C98B1E44DA0FCD',
-        nombre: 'Comunicación Audiovisual',
-        rutaIcono: '../../assets/images/comunicacion-fondo.png'
+        codigo: '5D6B24D3723843B6AE6C2D9414596CF1',
+        nombre: 'Institucional',
+        rutaIcono: '../../assets/images/institucional.png'
       },
       {
-        codigo: '1A88CB43CB3E4495A5313B7B7608E103',
-        nombre: 'Administración',
-        rutaIcono: '../../assets/images/administracion-fondo.png'
+        codigo: 'DF6F620DF6CA4BEBABB09586F077022B',
+        nombre: 'Investigación',
+        rutaIcono: '../../assets/images/investigacion.png'
       },
       {
-        codigo: '8159AC5F19CC45C7A6C88E4BD1AE535D',
-        nombre: 'Ciencias Básicas, Sociales y Humanas',
-        rutaIcono: '../../assets/images/ciencias-basicas-fondo.png'
+        codigo: '225DC1D2FAD64C7FA6752062DF99AC50',
+        nombre: 'Sello Editorial',
+        rutaIcono: '../../assets/images/selloeditorial.png'
       },
       {
-        codigo: 'C23FF86A5F2A4C00B5D2FC0DC110DF76',
-        nombre: 'Ciencias Agrarias',
-        rutaIcono: '../../assets/images/agrarias-fondo.png'
+        codigo: '103195D9BECC428380D5D8A7F1E563B3',
+        nombre: 'Trabajos de Grado',
+        rutaIcono: '../../assets/images/trabajosdegrado.png'
       },
-      {
-        codigo: '2AB9FDE4F503418281784CA5E74023FA',
-        nombre: 'Educación Física, Recreación y Deportes',
-        rutaIcono: '../../assets/images/deportes-fondo.png'
-      }
     ];
   }
 
@@ -148,12 +144,14 @@ export class HomeComponent implements OnInit {
       CondicionUno: this.formBusquedaAvanzada.value.cond1,
       Creator: this.formBusquedaAvanzada.value.creator,
       CondicionDos: this.formBusquedaAvanzada.value.cond2,
-      Subject: this.formBusquedaAvanzada.value.subject,
+      Advice: this.formBusquedaAvanzada.value.advice,
       CondicionTres: this.formBusquedaAvanzada.value.cond3,
-      TirCodigo: this.formBusquedaAvanzada.value.tipoRecurso,
+      Subject: this.formBusquedaAvanzada.value.subject,
       CondicionCuatro: this.formBusquedaAvanzada.value.cond4,
-      ArcCodigo: this.formBusquedaAvanzada.value.areaConocimiento,
+      TirCodigo: this.formBusquedaAvanzada.value.tipoRecurso,
       CondicionCinco: this.formBusquedaAvanzada.value.cond5,
+      ArcCodigo: this.formBusquedaAvanzada.value.areaConocimiento,
+      CondicionSeis: this.formBusquedaAvanzada.value.cond6,
       SedeCodigo: this.formBusquedaAvanzada.value.sede,
     };
   }

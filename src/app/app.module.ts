@@ -24,6 +24,7 @@ import { SedesService } from './services/sedes.service';
 import { ChangePasswordService } from './services/change-password.service';
 import { ProgramsService } from './services/programs.service';
 import { MetadataService } from './services/metadata.service';
+import { ColletionsService } from './services/colletions.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -93,6 +94,7 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
     ChangePasswordService,
     ProgramsService,
     MetadataService,
+    ColletionsService,
     Meta
   ],
   bootstrap: [AppComponent]

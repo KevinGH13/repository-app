@@ -45,7 +45,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="text" formControlName="keywords" placeholder="Palabras Claves" class="form-control" maxlength="100">
+                                    <input type="text" formControlName="asesor" placeholder="Asesor" class="form-control" maxlength="100">
                                 </div>
                                 <div class="col-sm-1">
                                     <select class="custom-select" formControlName="cond3">
@@ -57,11 +57,7 @@
                             <br>
                             <div class="form-row">
                                 <div class="col-sm-3">
-                                    <select class="custom-select" id="ddlTipoRecurso" formControlName="tipoRecurso">
-                                        <option value="">Seleccione un Tipo de Recurso</option>
-                                        <option *ngFor="let tipoRe of listTipoRecursos" [value]="tipoRe.codigo">
-                                            {{ tipoRe.nombre }}</option>
-                                    </select>
+                                    <input type="text" formControlName="keywords" placeholder="Palabras Claves" class="form-control" maxlength="100">
                                 </div>
                                 <div class="col-sm-1">
                                     <select class="custom-select" formControlName="cond4">
@@ -69,12 +65,11 @@
                                         <option value="O">O</option>
                                     </select>
                                 </div>
-                                <div class="col-sm-3">
-                                    <select class="custom-select" id="ddlAreaConocimiento" formControlName="areaConocimiento">
-                                        <option value="">Seleccione una Facultad</option>
-                                        <option *ngFor="let areaCo of listAreasConocimiento" [value]="areaCo.codigo">
-                                            {{ areaCo.nombre }}
-                                        </option>
+                                <div class="col-sm-2">
+                                    <select class="custom-select" id="ddlTipoRecurso" formControlName="tipoRecurso">
+                                        <option value="">Tipo de Recurso</option>
+                                        <option *ngFor="let tipoRe of listTipoRecursos" [value]="tipoRe.codigo">
+                                            {{ tipoRe.nombre }}</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-1">
@@ -83,9 +78,23 @@
                                         <option value="O">O</option>
                                     </select>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
+                                    <select class="custom-select" id="ddlAreaConocimiento" formControlName="areaConocimiento">
+                                        <option value="">Seleccione Facultad</option>
+                                        <option *ngFor="let areaCo of listAreasConocimiento" [value]="areaCo.codigo">
+                                            {{ areaCo.nombre }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-1">
+                                    <select class="custom-select" formControlName="cond6">
+                                        <option value="A">Y</option>
+                                        <option value="O">O</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
                                     <select class="custom-select" id="ddlSede" formControlName="sede">
-                                        <option value="">Seleccione una Sede</option>
+                                        <option value="">Seleccione Sede</option>
                                         <option *ngFor="let sede of listSedes" [value]="sede.codigo">{{ sede.nombre }}
                                         </option>
                                     </select>
@@ -133,14 +142,14 @@
                         No se han encontrado resultados.
                     </div>
                     <div class="row artifact" *ngFor="let resource of listResources | paginate: { itemsPerPage: 6, currentPage: pageNumber, totalItems: total } ">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="thumbail artifact-preview">
                                 <a [routerLink]="['/recurso/', {id: resource.codigo, search:false}]" class="image-link">
-                                    <img class="img-responsive img-thumbnail" alt="thumbnail" src="/assets/images/pdf.png">
+                                    <img class="img-responsive img-thumbnail" alt="thumbnail" [src]="resource.imagen">
                                 </a>
                             </div>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-10">
                             <a [routerLink]="['/recurso/', {id: resource.codigo, search:false}]">
                                 <h5>{{ resource.title }}</h5>
                             </a>
@@ -199,7 +208,7 @@
                         <div class="col-sm-12">
                             <div class="form-group row">
                                 <label for="alternative">Título alternativo</label>
-                                <input type="text" class="form-control" id="txtAlternative" placeholder="Título." maxlength="512" autocomplete="off" formControlName="alternative" [ngClass]="{'is-invalid':submitted && fo.alternative.errors }">
+                                <input type="text" class="form-control" id="txtAlternative" placeholder="Título alternativo del recurso." maxlength="512" autocomplete="off" formControlName="alternative" [ngClass]="{'is-invalid':submitted && fo.alternative.errors }">
                                 <small id="alternativeHelp" class="form-text text-muted">
                                     Ejemplo: título alterno, porción del título principal o título en segundo idioma.
                                 </small>
@@ -219,7 +228,7 @@
                                     <div *ngIf="fo.creator.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
                                     </div>
                                 </div>
-                                <small id="identifierHelp" class="form-text text-muted">
+                                <small id="CreatorrHelp" class="form-text text-muted">
                                     Separados por coma.
                                 </small>
                             </div>
@@ -248,12 +257,15 @@
                         <div class="col-sm-12">
                             <div class="form-group row">
                                 <label for="subject">Palabras Clave*</label>
-                                <textarea class="form-control" id="txtSubject" rows="2" maxlength="512" placeholder="Palabras clave. (Separadas por coma)." autocomplete="off" formControlName="subject" [ngClass]="{'is-invalid':submitted && fo.subject.errors }"></textarea>
+                                <textarea class="form-control" id="txtSubject" rows="2" maxlength="512" placeholder="Temas, tópicos, frases clave o categorías que describen el contenido del recurso. (Separadas por coma)." autocomplete="off" formControlName="subject" [ngClass]="{'is-invalid':submitted && fo.subject.errors }"></textarea>
                                 <div *ngIf="submitted && fo.subject.errors" class="invalid-feedback">
                                     <div *ngIf="fo.subject.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
                                     <div *ngIf="fo.subject.errors.pattern">{{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
                                     </div>
                                 </div>
+                                <small id="SubjectHelp" class="form-text text-muted">
+                                    Separados por coma.
+                                </small>
                             </div>
                         </div>
                         <div class="row">
@@ -266,7 +278,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="sedeCodigo">Sede*</label>
+                                <label for="sedeCodigo">Sede</label>
                                 <select class="custom-select" formControlName="sedeCodigo" [ngClass]="{'is-invalid':submitted && fo.sedeCodigo.errors}">
                                     <option value="">Seleccione Sede</option>
                                     <option *ngFor="let sede of listSedes" [value]="sede.codigo">{{ sede.nombre }}
@@ -280,7 +292,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label for="department">Facultad*</label>
+                                <label for="department">Facultad</label>
                                 <select class="custom-select" formControlName="arcCodigo" [ngClass]="{'is-invalid':submitted && fo.arcCodigo.errors }">
                                     <option value="">Seleccione Facultad</option>
                                     <option *ngFor="let AreCon of listAreasConocimiento" [value]="AreCon.codigo">
@@ -291,7 +303,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="program">Programa*</label>
+                                <label for="program">Programa</label>
                                 <select class="custom-select" formControlName="proCodigo" [ngClass]="{'is-invalid':submitted && fo.proCodigo.errors }">
                                     <option value="">Seleccione Programa</option>
                                     <option *ngFor="let ProAca of listProgramasAcademicos" [value]="ProAca.codigo">
@@ -326,15 +338,21 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
-                                <label for="extend">Extensión/Duración</label>
-                                <input type="text" class="form-control" id="txtExtend" placeholder="Extension o duración del recurso." maxlength="20" autocomplete="off" formControlName="extend" [ngClass]="{'is-invalid':submitted && fo.extend.errors }">
-
+                                <label for="language">Lenguaje*</label>
+                                <select class="custom-select" formControlName="tilCodigo" [ngClass]="{'is-invalid':submitted && fo.tilCodigo.errors }">
+                                    <option value="">Seleccione Lenguaje</option>
+                                    <option *ngFor="let Lang of listLenguajes" [value]="Lang.codigo">{{ Lang.nombre }}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && fo.tilCodigo.errors" class="invalid-feedback">
+                                    <div *ngIf="fo.tilCodigo.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                                </div>
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="medium">Descripción física</label>
                                 <input type="text" class="form-control" id="txtMedium" placeholder="Descripción física del recurso." maxlength="100" autocomplete="off" formControlName="medium" [ngClass]="{'is-invalid':submitted && fo.medium.errors }">
-                                <small id="requiredHelp" class="form-text text-muted">
-                                    Descripción o manifestación física del recurso.
+                                <small id="FormatHelp" class="form-text text-muted">
+                                    Descripción, manifestación o extensión del recurso.
                                 </small>
                             </div>
                         </div>
@@ -351,14 +369,15 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-4">
-                                <label for="language">Lenguaje*</label>
-                                <select class="custom-select" formControlName="tilCodigo" [ngClass]="{'is-invalid':submitted && fo.tilCodigo.errors }">
-                                    <option value="">Seleccione Lenguaje</option>
-                                    <option *ngFor="let Lang of listLenguajes" [value]="Lang.codigo">{{ Lang.nombre }}
+                                <label for="colCodigo">Colección*</label>
+                                <select class="custom-select" formControlName="colCodigo" [ngClass]="{'is-invalid':submitted && fo.colCodigo.errors }">
+                                    <option value="">Seleccione la Colección</option>
+                                    <option *ngFor="let col of ListColletions" [value]="col.codigo">
+                                        {{ col.nombre }}
                                     </option>
                                 </select>
-                                <div *ngIf="submitted && fo.tilCodigo.errors" class="invalid-feedback">
-                                    <div *ngIf="fo.tilCodigo.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
+                                <div *ngIf="submitted && fo.colCodigo.errors" class="invalid-feedback">
+                                    <div *ngIf="fo.colCodigo.errors.required">{{ util.MENSAJE_CAMPO_OBLIGATORIO }}</div>
                                 </div>
                             </div>
                             <div class="form-group col-sm-4">
@@ -372,7 +391,7 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="doi">DOI</label>
-                                <input type="text" class="form-control" id="txtDOI" placeholder="DOI" maxlength="100" autocomplete="off" formControlName="doi" [ngClass]="{'is-invalid':submitted && fo.doi.errors }">
+                                <input type="text" class="form-control" id="txtDOI" placeholder="DOI." maxlength="100" autocomplete="off" formControlName="doi" [ngClass]="{'is-invalid':submitted && fo.doi.errors }">
 
                             </div>
                             <div class="form-group col-sm-6">
@@ -393,7 +412,11 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="licence">Licencia</label>
-                                <input type="text" class="form-control" id="txtLicence" placeholder="Licencia." autocomplete="off" maxlength="512" formControlName="licence" [ngClass]="{'is-invalid':submitted && fo.licence.errors }">
+                                <input list="licences" type="text" class="form-control" id="txtLicence" placeholder="Seleccione licencia." autocomplete="off" maxlength="512" formControlName="licence" [ngClass]="{'is-invalid':submitted && fo.licence.errors }">
+                                <datalist id="licences">
+                                    <option *ngFor="let lic of listLicences" [value]="lic">{{ lic }}
+                                    </option>
+                                </datalist>
                             </div>
                             <div class="form-group col-sm-6">
                                 <label>Restringir Descarga</label>
@@ -466,6 +489,9 @@
                                     un archivo
                                 </label>
                                 <input type="file" class="custom-file-input" id="customFileLang" formControlName="archivo" (change)="handleFileInput($event.target.files)" [ngClass]="{'is-invalid':submitted && fo.archivo.errors}" />
+                                <small id="alternativeHelp" class="form-text text-muted">
+                                    Extensiones permitidas: .PDF.
+                                </small>
                             </div>
                         </div>
                     </form>

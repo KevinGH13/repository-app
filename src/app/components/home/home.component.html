@@ -18,12 +18,12 @@
         <div>
             <br>
             <div class="card-columns margen-container-cards">
-                <div class="card content-card animated fadeIn fast" *ngFor="let facultie of listFacultiesWithIcon">
+                <div class="card content-card animated fadeIn fast" *ngFor="let collection of listColletionsWithIcon">
                     <!-- [routerLink]="['/resources',facultie.id]" -->
-                    <a [routerLink]="['/discover', { id: facultie.codigo, search:false}]"><img [src]="facultie.rutaIcono" class="card-img-top img-fluid" [alt]="facultie.nombre"></a>
+                    <a [routerLink]="['/discover', { id: collection.codigo, search:false}]"><img [src]="collection.rutaIcono" class="card-img-top img-fluid" [alt]="collection.nombre"></a>
                     <div class="card-block">
                         <br>
-                        <h5 class="card-title tipo-letra-arc">{{ facultie.nombre }}</h5>
+                        <h5 class="card-title tipo-letra-arc">{{ collection.nombre }}</h5>
                     </div>
                 </div>
             </div>
@@ -75,10 +75,10 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-10 mb-3">
-                            <input type="text" formControlName="subject" placeholder="Palabras Claves" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': submitted && fo.subject.errors }">
-                            <div *ngIf="submitted && fo.subject.errors" class="invalid-feedback">
-                                <div *ngIf="fo.subject.errors.pattern">
-                                    {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }} </div>
+                            <input type="text" formControlName="advice" placeholder="Asesor" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': submitted && fo.advice.errors }">
+                            <div *ngIf="submitted && fo.advice.errors" class="invalid-feedback">
+                                <div *ngIf="fo.advice.errors.pattern"> {{ util.MENSAJE_CAMPO_CARACTERES_INVALIDOS }}
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-2 mb-3">
@@ -90,13 +90,30 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-10 mb-3">
+                            <input type="text" formControlName="subject" placeholder="Palabras Claves" class="form-control" maxlength="100" [ngClass]="{ 'is-invalid': submitted && fo.subject.errors }">
+                            <div *ngIf="submitted && fo.subject.errors" class="invalid-feedback">
+                                <div *ngIf="fo.subject.errors.pattern">
+                                    {{ util.MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO }} </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <select class="custom-select" formControlName="cond4">
+                                <option value="A">Y</option>
+                                <option value="O">O</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-10 mb-3">
                             <select class="custom-select" id="ddlTipoRecurso" formControlName="tipoRecurso">
                                 <option value="">Seleccione un Tipo de Recurso</option>
                                 <option *ngFor="let tipoRe of listTipoRecursos" [value]="tipoRe.codigo">
-                                    {{ tipoRe.nombre }}</option>
-                            </select> </div>
+                                    {{ tipoRe.nombre }}
+                                </option>
+                            </select>
+                        </div>
                         <div class="col-md-2 mb-3">
-                            <select class="custom-select" formControlName="cond4">
+                            <select class="custom-select" formControlName="cond5">
                                 <option value="A">Y</option>
                                 <option value="O">O</option>
                             </select>
@@ -111,7 +128,7 @@
                             </select>
                         </div>
                         <div class="col-md-2 mb-3">
-                            <select class="custom-select" formControlName="cond5">
+                            <select class="custom-select" formControlName="cond6">
                                 <option value="A">Y</option>
                                 <option value="O">O</option>
                             </select>
@@ -134,4 +151,6 @@
             </div>
         </div>
     </div>
+    <br>
 </div>
+<br>

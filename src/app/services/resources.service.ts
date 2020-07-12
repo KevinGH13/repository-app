@@ -51,6 +51,13 @@ export class ResourcesService {
             }));
     }
 
+    getColletions(): Observable<ResponseModel> {
+        return this.httpClient.get<ResponseModel>(this.util.baseUrl + '/Coleccion/GetAll', { headers: this.util.getHeaderToken() })
+            .pipe(catchError(error => {
+                return throwError(error);
+            }));
+    }
+
     getResources(): Observable<ResponseModel> {
         return this.httpClient.get<ResponseModel>(this.util.baseUrl + '/Recursos/GetAll', { headers: this.util.getHeaderToken() })
             .pipe(catchError(error => {
@@ -121,6 +128,7 @@ export class ResourcesService {
             TirCodigo: modeloResource.tirCodigo,
             ArcCodigo: modeloResource.arcCodigo,
             ProCodigo: modeloResource.proCodigo,
+            ColCodigo: modeloResource.colCodigo,
             UsuCodigoCreacion: 'Default',
             SedeCodigo: modeloResource.sedeCodigo,
             IndDescargaRestringida: modeloResource.indDescargaRestringida
@@ -134,7 +142,6 @@ export class ResourcesService {
 
         return this.httpClient.post(this.util.baseUrl + '/Recursos/Download', {},
             { responseType: 'blob', params: httParams, headers: this.util.getHeaderToken() });
-
     }
 
     getAdvancedSearch(model: string): Observable<ResponseModel> {

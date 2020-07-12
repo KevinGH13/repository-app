@@ -25,6 +25,8 @@ export class RecursoComponent implements OnInit {
   listProgramasAcademicos: any[] = [];
   listTipoRecursos: any[] = [];
   listSedes: any[] = [];
+  listLicences: any[] = [];
+  ListColletions: any[] = [];
   metadata: any;
   pageNumber: number;
   total: number;
@@ -61,6 +63,8 @@ export class RecursoComponent implements OnInit {
     this.getTiposLenguaje();
     this.getSedes();
     this.getProgramasAcademicos();
+    this.getLicences();
+    this.getColletions();
     this.getResourceByCod(this.activatedRoute.snapshot.paramMap.get('id'));
     this.createMetadata(this.activatedRoute.snapshot.paramMap.get('id'));
   }
@@ -101,6 +105,17 @@ export class RecursoComponent implements OnInit {
         error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
+  getColletions(): any {
+    this.resourcesService.getColletions()
+      .subscribe(response => {
+        if (response.status) {
+          this.ListColletions = response.information;
+        } else {
+          this.util.manageResponseFalse(response);
+        }
+      }, error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+  }
+
   getAreasConocimiento(): any {
     this.resourcesService.getAreasConocimiento()
       .subscribe(response => {
@@ -123,6 +138,13 @@ export class RecursoComponent implements OnInit {
         }
       },
         error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+  }
+
+  getLicences(): any {
+    this.listLicences = ['Copyrigth', 'Copyleft', 'Creative Commons - Reconocimiento', 'Creative Commons - Reconocimiento - NoComercial',
+      'Creative Commons - Reconocimiento - NoComercial - CompartirIgual',
+      'Creative Commons - Reconocimiento - NoComercial - SinObraDerivada',
+      'Creative Commons - CompartirIgual', 'Creative Commons - Reconocimiento - SinObraDerivada'];
   }
 
   get fo() { return this.formResource.controls; }
@@ -243,6 +265,7 @@ export class RecursoComponent implements OnInit {
       proCodigo: ['', Validators.required],
       tirCodigo: ['', Validators.required],
       arcCodigo: ['', Validators.required],
+      colCodigo: ['', Validators.required],
       archivo: ['', Validators.required],
       visualizaciones: ['', null],
       descargas: ['', null],
@@ -321,6 +344,7 @@ export class RecursoComponent implements OnInit {
       tirCodigo: [resourceSelected.tirCodigo, Validators.required],
       arcCodigo: [resourceSelected.arcCodigo, Validators.required],
       proCodigo: [resourceSelected.proCodigo, Validators.required],
+      colCodigo: [resourceSelected.proCodigo, Validators.required],
       archivo: [''],
       visualizaciones: [resourceSelected.visualizaciones, null],
       descargas: [resourceSelected.descargas, null],
@@ -438,7 +462,7 @@ export class RecursoComponent implements OnInit {
           this.meta.updateTag({ name: 'DC.date', content: this.metadata[0].date });
         }
         if (this.metadata[0].year !== '') {
-          this.meta.updateTag({ name: 'DCTERMS.yewar', content: this.metadata[0].year });
+          this.meta.updateTag({ name: 'DCTERMS.issued', content: this.metadata[0].year });
         }
         if (this.metadata[0].dateCreated !== null) {
           this.meta.updateTag({ name: 'DCTERMS.created', content: this.metadata[0].dateCreated });
@@ -462,7 +486,7 @@ export class RecursoComponent implements OnInit {
           this.meta.updateTag({ name: 'DCTERMS.extend', content: this.metadata[0].extend });
         }
         if (this.metadata[0].medium !== '') {
-          this.meta.updateTag({ name: 'DCTERMS.medium', content: this.metadata[0].medium });
+          this.meta.updateTag({ name: 'DC.format', content: this.metadata[0].medium });
         }
         if (this.metadata[0].timCodigo !== '') {
           this.meta.updateTag({ name: 'DC.format.mimetype', content: this.metadata[0].timNombre });

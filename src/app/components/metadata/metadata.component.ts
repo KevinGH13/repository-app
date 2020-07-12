@@ -129,7 +129,7 @@ export class MetadataComponent implements OnInit {
           this.meta.updateTag({ name: 'DC.date', content: this.metadata[0].date });
         }
         if (this.metadata[0].year !== '') {
-          this.meta.updateTag({ name: 'DCTERMS.year', content: this.metadata[0].year });
+          this.meta.updateTag({ name: 'DCTERMS.issued', content: this.metadata[0].year });
         }
         if (this.metadata[0].dateCreated !== null) {
           this.meta.updateTag({ name: 'DCTERMS.created', content: this.metadata[0].dateCreated });
@@ -153,7 +153,7 @@ export class MetadataComponent implements OnInit {
           this.meta.updateTag({ name: 'DCTERMS.extend', content: this.metadata[0].extend });
         }
         if (this.metadata[0].medium !== '') {
-          this.meta.updateTag({ name: 'DCTERMS.medium', content: this.metadata[0].medium });
+          this.meta.updateTag({ name: 'DC.format', content: this.metadata[0].medium });
         }
         if (this.metadata[0].timCodigo !== '') {
           this.meta.updateTag({ name: 'DC.format.mimetype', content: this.metadata[0].timNombre });

@@ -23,6 +23,8 @@ export class DiscoverComponent implements OnInit {
   listProgramasAcademicos: any[] = [];
   listTipoRecursos: any[] = [];
   listSedes: any[] = [];
+  listLicences: any[] = [];
+  ListColletions: any[] = [];
   pageNumber: number;
   total: number;
   today: Date = new Date();
@@ -61,6 +63,8 @@ export class DiscoverComponent implements OnInit {
     this.getTiposLenguaje();
     this.getSedes();
     this.getProgramasAcademicos();
+    this.getLicences();
+    this.getColletions();
   }
 
   getSedes(): any {
@@ -99,6 +103,17 @@ export class DiscoverComponent implements OnInit {
         error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
   }
 
+  getColletions(): any {
+    this.resourcesService.getColletions()
+      .subscribe(response => {
+        if (response.status) {
+          this.ListColletions = response.information;
+        } else {
+          this.util.manageResponseFalse(response);
+        }
+      }, error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+  }
+
   getAreasConocimiento(): any {
     this.resourcesService.getAreasConocimiento()
       .subscribe(response => {
@@ -121,6 +136,13 @@ export class DiscoverComponent implements OnInit {
         }
       },
         error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
+  }
+
+  getLicences(): any {
+    this.listLicences = ['Copyrigth', 'Copyleft', 'Creative Commons - Reconocimiento', 'Creative Commons - Reconocimiento - NoComercial',
+      'Creative Commons - Reconocimiento - NoComercial - CompartirIgual',
+      'Creative Commons - Reconocimiento - NoComercial - SinObraDerivada',
+      'Creative Commons - CompartirIgual', 'Creative Commons - Reconocimiento - SinObraDerivada'];
   }
 
   getResource() {
@@ -194,7 +216,7 @@ export class DiscoverComponent implements OnInit {
   searchResourceById() {
     this.activatedRoute.params.subscribe(params => {
       if (params.id) {
-        this.listResources = this.listResources.filter(x => x.arcCodigo === params.id);
+        this.listResources = this.listResources.filter(x => x.colCodigo === params.id);
       }
     },
       error => { this.util.manageSesion(this.router); this.btnCloseModal.nativeElement.click(); });
@@ -266,6 +288,7 @@ export class DiscoverComponent implements OnInit {
       proCodigo: ['', Validators.required],
       tirCodigo: ['', Validators.required],
       arcCodigo: ['', Validators.required],
+      colCodigo: ['', Validators.required],
       archivo: ['', Validators.required],
       visualizaciones: ['', null],
       descargas: ['', null],
@@ -280,6 +303,7 @@ export class DiscoverComponent implements OnInit {
     this.formBusquedaAvanzada = this.formBuilder.group({
       titulo: ['', [Validators.pattern('^[^<>]+$')]],
       autor: ['', [Validators.pattern('^[^<>]+$')]],
+      asesor: ['', [Validators.pattern('^[^<>]+$')]],
       keywords: ['', [Validators.pattern('^[^<>]+$')]],
       tipoLenguaje: ['', null],
       tipoRecurso: ['', null],
@@ -422,12 +446,14 @@ export class DiscoverComponent implements OnInit {
       CondicionUno: this.formBusquedaAvanzada.value.cond1,
       Creator: this.formBusquedaAvanzada.value.autor,
       CondicionDos: this.formBusquedaAvanzada.value.cond2,
-      Subject: this.formBusquedaAvanzada.value.keywords,
+      Advice: this.formBusquedaAvanzada.value.asesor,
       CondicionTres: this.formBusquedaAvanzada.value.cond3,
-      TirCodigo: this.formBusquedaAvanzada.value.tipoRecurso,
+      Subject: this.formBusquedaAvanzada.value.keywords,
       CondicionCuatro: this.formBusquedaAvanzada.value.cond4,
-      ArcCodigo: this.formBusquedaAvanzada.value.areaConocimiento,
+      TirCodigo: this.formBusquedaAvanzada.value.tipoRecurso,
       CondicionCinco: this.formBusquedaAvanzada.value.cond5,
+      ArcCodigo: this.formBusquedaAvanzada.value.areaConocimiento,
+      CondicionSeis: this.formBusquedaAvanzada.value.cond6,
       SedeCodigo: this.formBusquedaAvanzada.value.sede,
     };
   }
