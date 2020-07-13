@@ -344,7 +344,7 @@ export class RecursoComponent implements OnInit {
       tirCodigo: [resourceSelected.tirCodigo, Validators.required],
       arcCodigo: [resourceSelected.arcCodigo, Validators.required],
       proCodigo: [resourceSelected.proCodigo, Validators.required],
-      colCodigo: [resourceSelected.proCodigo, Validators.required],
+      colCodigo: [resourceSelected.colCodigo, Validators.required],
       archivo: [''],
       visualizaciones: [resourceSelected.visualizaciones, null],
       descargas: [resourceSelected.descargas, null],
