@@ -3,9 +3,8 @@ import { FacultiesService } from '../../services/faculties.service';
 import { Util } from '../../util/util';
 import { TiposDocumentosService } from '../../services/tipos-documentos.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { ResourcesService } from '../../services/resources.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,6 +16,7 @@ export class HomeComponent implements OnInit {
 
   aplicationName: string;
   universityName: string;
+  welcomeMessage: String;
   listFaculties: any[] = [];
   listColletionsWithIcon: any[] = [];
   listTipoRecursos: any[] = [];
@@ -30,9 +30,10 @@ export class HomeComponent implements OnInit {
   @ViewChild('searchTitleSA') txtSearchTitleAS: ElementRef;
 
   constructor(private falcultiesService: FacultiesService, private tipoRecursoService: TiposDocumentosService,
-    private sanitizer: DomSanitizer, private resourceService: ResourcesService, private route: Router) {
+    private resourceService: ResourcesService, private route: Router) {
     this.aplicationName = 'REPOSITORIO INSTITUCIONAL';
     this.universityName = 'POLITÉCNICO COLOMBIANO JAIME ISAZA CADAVID';
+    this.welcomeMessage = 'Bienvenido al repositorio de la producción intelectual de la comunidad Politécnica.'
   }
 
   ngOnInit() {
@@ -100,27 +101,32 @@ export class HomeComponent implements OnInit {
   selectImagesHomePage(): any {
     this.listColletionsWithIcon = [
       {
-        codigo: '2567A065D99648C88D8BE14B73012ABB',
+        codigo: '41B06F5683014B24B4C57321474619F0',
         nombre: 'Docencia',
         rutaIcono: '../../assets/images/docencia.png'
       },
       {
-        codigo: '5D6B24D3723843B6AE6C2D9414596CF1',
-        nombre: 'Institucional',
+        codigo: '950D775876BF43B89081C459609F9B09',
+        nombre: 'Documentos Institucionales',
         rutaIcono: '../../assets/images/institucional.png'
       },
       {
-        codigo: 'DF6F620DF6CA4BEBABB09586F077022B',
+        codigo: 'FE7DD1473C9A4ABDBB11C24AEF22D5B1',
         nombre: 'Investigación',
         rutaIcono: '../../assets/images/investigacion.png'
       },
       {
-        codigo: '225DC1D2FAD64C7FA6752062DF99AC50',
-        nombre: 'Sello Editorial',
+        codigo: '625793BB3A464573A13553F173DCDD9B',
+        nombre: 'Libros',
         rutaIcono: '../../assets/images/selloeditorial.png'
       },
       {
-        codigo: '103195D9BECC428380D5D8A7F1E563B3',
+        codigo: '02EB148050DC4636B4A26FA84B61BA92',
+        nombre: 'Revistas PCJIC',
+        rutaIcono: '../../assets/images/revistaspcjic.png'
+      },
+      {
+        codigo: '8EC5E847304E49AD87CE0F72D5E5412C',
         nombre: 'Trabajos de Grado',
         rutaIcono: '../../assets/images/trabajosdegrado.png'
       },

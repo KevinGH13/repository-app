@@ -10,7 +10,6 @@ import { ResponseModel } from 'src/app/models/response-model';
 import { saveAs } from 'file-saver';
 import { LoginService } from '../../services/login.service';
 import { Meta } from '@angular/platform-browser';
-import { isNull } from 'util';
 
 
 @Component({
