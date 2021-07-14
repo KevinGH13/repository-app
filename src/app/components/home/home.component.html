@@ -1,7 +1,8 @@
-<div>
+<div class="container-fluid">
     <div class="container text-center">
         <h5 class="tipo-fuente-titulo">{{ aplicationName }}</h5>
         <h5 class="tipo-fuente-titulo">{{ universityName }}</h5>
+        <h4 class="tipo-fuente-message">{{ welcomeMessage }}</h4>
         <br>
         <div class="input-group caja-busqueda">
             <input class="form-control mr-sm-2 margen" type="search" placeholder="Búsquedas" aria-label="Search" #searchTitle (keyup.enter)="onSearchByTitle($event)">
@@ -19,7 +20,6 @@
             <br>
             <div class="card-columns margen-container-cards">
                 <div class="card content-card animated fadeIn fast" *ngFor="let collection of listColletionsWithIcon">
-                    <!-- [routerLink]="['/resources',facultie.id]" -->
                     <a [routerLink]="['/discover', { id: collection.codigo, search:false}]"><img [src]="collection.rutaIcono" class="card-img-top img-fluid" [alt]="collection.nombre"></a>
                     <div class="card-block">
                         <br>

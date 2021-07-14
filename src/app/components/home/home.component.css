@@ -10,7 +10,7 @@
 
 .card-columns {
     margin-top: 3em;
-    column-count: 5;
+    column-count: 6;
 }
 
 .image-size {
@@ -21,6 +21,10 @@
     font-family: "Bahnschrift Condensed";
     font-weight: bold;
     font-size: 2em;
+}
+.tipo-fuente-message {
+    font-family: "Bahnschrift Condensed";
+    color: #383838;
 }
 
 .tipo-letra-arc {

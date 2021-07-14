@@ -3,13 +3,13 @@ import { FormGroup } from '@angular/forms';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 export class Util {
 
     constructor() { }
 
-    // public baseUrl = 'http://localhost:9000/RepositorioPCJIC';
-    public baseUrl = 'https://webapirdpcjic.azurewebsites.net/RepositorioPCJIC';
+    public baseUrl = environment.baseUrl;
     public MENSAJE_CAMPO_OBLIGATORIO = 'Campo Obligatorio';
     public MENSAJE_CAMPO_CARACTERES_INVALIDOS = 'No se permiten los caracteres: < , >';
     public MENSAJE_CAMPO_SOLO_LETRAS_ESPACIO = 'Solo se permiten letras y espacios';

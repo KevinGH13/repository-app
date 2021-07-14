@@ -3,6 +3,7 @@
 html,
 body {
     background: transparent;
+    position: relative;
     /*height: 100% !important;*/
     margin: 0;
     padding: 0;

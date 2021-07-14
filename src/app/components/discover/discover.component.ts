@@ -1,8 +1,8 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone, AfterContentInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ResourcesService } from '../../services/resources.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import swal from 'sweetalert2';
 import { Util } from '../../util/util';
 import { ResponseModel } from 'src/app/models/response-model';
