@@ -1,13 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ResourcesService } from '../../services/resources.service';
 import { MetadataService } from '../../services/metadata.service';
-import { ActivatedRoute, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import swal from 'sweetalert2';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Util } from '../../util/util';
-import { ResponseModel } from 'src/app/models/response-model';
-import { saveAs } from 'file-saver';
 import { LoginService } from '../../services/login.service';
 import { Meta } from '@angular/platform-browser';
 
@@ -30,7 +26,6 @@ export class MetadataComponent implements OnInit {
   formResource: FormGroup;
   submitted = false;
   fechaGrid: Date;
-  private formBuilder: FormBuilder = new FormBuilder();
   operacion: string;
   tituloModal: string;
   fileToUpload: File;
@@ -39,7 +34,7 @@ export class MetadataComponent implements OnInit {
 
 
   constructor(private resourcesService: ResourcesService, private activatedRoute: ActivatedRoute,
-    private router: Router, private metadataService: MetadataService, private loginService: LoginService,
+    private router: Router, private metadataService: MetadataService,
     private meta: Meta) { }
 
   ngOnInit() {

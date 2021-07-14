@@ -164,7 +164,6 @@ export class HomeComponent implements OnInit {
 
   onSearchByTitle(event: any) {
     const titleValue = this.txtSearchTitle.nativeElement.value;
-    // localStorage.setItem('SearchTitle', titleValue);
     this.route.navigate(['/discover', { title: titleValue }]);
   }
 

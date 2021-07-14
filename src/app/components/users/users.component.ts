@@ -1,10 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { UsersService } from '../../services/users.service';
 import { Util } from '../../util/util';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import swal from 'sweetalert2';
 import { ResponseModel } from 'src/app/models/response-model';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({

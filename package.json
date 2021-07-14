@@ -1,6 +1,7 @@
 {
     "name": "repository-app",
     "version": "1.0.0",
+    "author": "Wilmar Santiago Duque Valencia - Kevin García Hincapié",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
