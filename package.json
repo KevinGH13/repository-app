@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "author": "Wilmar Santiago Duque Valencia - Kevin García Hincapié",
     "scripts": {
+        "heroku-postbuild": "ng build --prod",
         "ng": "ng",
-        "start": "ng serve",
-        "build": "ng build --watch --configuration production",
+        "start": "node server.js",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e"
